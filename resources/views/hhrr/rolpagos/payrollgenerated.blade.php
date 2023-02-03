@@ -150,8 +150,7 @@
           
           </div>
         
-          </div>    
-    
+          </div>
           @endif
 
     
