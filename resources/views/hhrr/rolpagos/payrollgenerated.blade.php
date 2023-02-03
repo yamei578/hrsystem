@@ -42,7 +42,8 @@
     $('#totalDeIngresos').val(totalIngresos.toFixed(2));
 
     //aporte iess 
-    let porcentajeIess = 0.0945;
+    //let porcentajeIess = 0.0945;
+    var porcentajeIess = document.getElementById('iessToInt2').value;
     var totalIess = parseFloat(totalIngresos * porcentajeIess);
     $('#aporteTotal').val(totalIess.toFixed(2));
     $('#aporteTotal2').val(totalIess.toFixed(2));
@@ -129,7 +130,7 @@
                     
                      <td><input type="text" class="inputs" style="background-color: #D7E5FD" value="0"  id="comisionValor" name="comision_valor"></td>
                      <td><input type="text" class="inputs" readonly value="{{($totalIngresos)}}" name="total_ingresos" id="totalDeIngresos"></td>
-                     <td><input type="text" class="inputs" value="{{($descuentoIess)}}" name="aporte_total" id="aporteTotal"></td>
+                     <td><input type="text" class="inputs" readonly value="{{($descuentoIess)}}" name="aporte_total" id="aporteTotal"></td>
                      <td><input type="text" class="inputs" style="background-color: #D7E5FD" value="0" id="prestamos" name="prestamos"></td>
                      <td><input type="text" class="inputs" style="background-color: #D7E5FD" value="0" id="anticipos" name="anticipos"></td>
                      <td><input type="text" class="inputs" readonly value="{{($totalDescuentos)}}" name="total_descuentos" id="aporteTotal2"></td>
@@ -139,7 +140,7 @@
                   <input type="text" name="user_id" value="{{$user_id}}" hidden="true">
                   <input type="text" name="fecha_desde" value="{{$fecha_desde}}" hidden="true">
                   <input type="text" name="fecha_hasta" value="{{$fecha_hasta}}" hidden="true">
-               
+                  <input type="text" id="iessToInt2" value="{{$iessToInt2}}" hidden="true" >
                   <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Guardar rol generado del colaborador</button><br>
                   </form>
                   </tbody><br>

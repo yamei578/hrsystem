@@ -247,7 +247,7 @@ public function payrollEmployee(){
         $iessToInt = $config_pay->iess;
     
        }
-      $iessToInt2 = floatval($iessToInt);
+        $iessToInt2 = floatval($iessToInt);
        
     
        $totalDiasLaborados = $query->count();
@@ -293,7 +293,8 @@ public function payrollEmployee(){
         'horas50'=>$horas50,
         'user_id'=>$user_id,
         'fecha_desde'=>$fecha_desde,
-        'fecha_hasta'=>$fecha_hasta
+        'fecha_hasta'=>$fecha_hasta,
+        'iessToInt2'=>$iessToInt2
         ]);
       
     }
