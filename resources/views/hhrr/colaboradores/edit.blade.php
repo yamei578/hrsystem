@@ -3,6 +3,24 @@
 
 @section('content')
 
+<style>
+  
+  .validationerror input {
+      border: 1px solid #a00;
+      background-color: #ffdddd;
+      padding: 2px 1px;
+  }
+  
+  .input-error{
+    outline: 1px solid red;
+  }
+  
+  .hidden { display: none; }
+  
+  
+</style>
+
+
 @if(session('employee-updated'))
             <div class="alert alert-success">{{session('employee-updated')}}</div>
 @endif
@@ -73,19 +91,31 @@
        
         <div class="col-sm-4">
           <label for="nombre">Nombre completo</label>
-          <input type="text" class="form-control" name="nombre" id="nombre" value="{{$employee->nombre}}">
+          <input type="text" class="form-control" name="nombre" id="nombre" value="{{$employee->nombre}}" required>
         </div>
    
 
  
     <div class="col-sm-4">
       <label for="employee_number">Cédula de Identidad</label>
-      <input type="text" class="form-control" name="employee_number" id="employee_number" value="{{$employee->employee_number}}">
+     <!-- <input type="text" class="form-control" name="employee_number" id="employee_number" value="{{$employee->employee_number}}">-->
+
+
+      <input id="cedula" type="text"  required maxlength="10" class="form-control @error('employee_number') is-invalid @enderror" name="employee_number" value="{{$employee->employee_number}}">
+                                <p class="errorExternal2 hidden" id="wrong-cedula">Debe escribir 10 digitos.</p><br>
+                                @error('employee_number')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                          
+
+
     </div>
 
     <div class="col-sm-4">
         <label for="">Fecha Nacimiento</label>
-        <input type="date" class="form-control" name="fecha_nacimiento" value="{{$employee->fecha_nacimiento}}" placeholder="yyyy/mm/dd">
+        <input type="date" class="form-control" name="fecha_nacimiento" required value="{{$employee->fecha_nacimiento}}" placeholder="yyyy/mm/dd">
       </div>
  
 
@@ -96,12 +126,16 @@
 
       <div class="col-sm-4">
         <label for="">Teléfono</label>
-        <input type="text" class="form-control" name="numero" id="numero" value="{{$employee->numero}}">
+       <!-- <input type="text" class="form-control" name="numero" id="numero" value="{{$employee->numero}}">-->
+        <input type="text" class="form-control required" id="numero" name="numero" maxlength="10" value="{{$employee->numero}}" required >
+        <p class="errorExternal2 hidden" id="wrong-phone">Debe escribir 10 digitos.</p><br>
+
+
       </div>
 
       <div class="col-sm-4">
         <label for="">Fecha de ingreso</label>
-        <input type="date" class="form-control" name="fecha_ingreso" value="{{$employee->fecha_ingreso}}" placeholder="yyyy/mm/dd">
+        <input type="date" class="form-control" name="fecha_ingreso" value="{{$employee->fecha_ingreso}}" placeholder="yyyy/mm/dd" required>
     </div>
  
     </div><br>
@@ -113,13 +147,13 @@
         
         <div class="col-sm-6">
         <label for="" >Email Personal</label>
-          <input type="email" class="form-control" name="email_personal" id="email_personal" value="{{$employee->email_personal}}">
+          <input type="email" class="form-control" name="email_personal" id="email_personal" value="{{$employee->email_personal}}" required>
         </div>
      
   
         <div class="col-sm-6">
         <label for="" >Email Empresa</label>
-          <input type="email" class="form-control" name="email_empresa" id="email_empresa" value="{{$employee->email_empresa}}">
+          <input type="email" class="form-control" name="email_empresa" id="email_empresa" value="{{$employee->email_empresa}}" required>
         </div>
      
       </div><br>
@@ -129,17 +163,17 @@
     
     <div class="col-sm-12">
     <label for="">Dirección domicilio</label>
-     <textarea class="form-control" name="direccion" id="direccion" cols="5" rows="3">{{$employee->direccion}}</textarea>
+     <textarea class="form-control" name="direccion" required id="direccion" cols="5" rows="3">{{$employee->direccion}}</textarea>
     </div>
   </div>
   <div class="form-group row">
-    <label for="inputEmail3" class="col-sm-2 col-form-label">Salario</label>
+    <label for="inputEmail3" class="col-sm-2 col-form-label">Salario $</label>
     <div class="col-sm-3">
-      <input type="text" class="form-control" name="salario" id="salario" value="{{$employee->salario}}">
+      <input type="text" class="form-control" name="salario" id="salario" value="{{$employee->salario}}" required>
     </div>
     <label for="inputEmail3" class="col-sm-2 col-form-label">Cuenta Bancaria</label>
     <div class="col-sm-5">
-     <textarea class="form-control" name="cuenta_bancaria" id="cuenta_bancaria" cols="3" rows="3">{{$employee->cuenta_bancaria}}</textarea>
+     <textarea class="form-control" name="cuenta_bancaria" id="cuenta_bancaria" cols="3" rows="3" required>{{$employee->cuenta_bancaria}}</textarea>
     </div>
   </div>
 
@@ -148,7 +182,7 @@
     <div class="col-6">
  
     <label for="departmentSelect">Departamento</label>
-    <select class="form-control" name="department_id" id="department_id">
+    <select class="form-control" required name="department_id" id="department_id">
         
     <option value="" disabled selected>Seleccionar</option>
     @foreach($departamentos as $departamento)
@@ -161,7 +195,7 @@
       
 
     <label for="jobSelect">Cargo</label>
-    <select class="form-control" id="job_id" name="job_id">
+    <select class="form-control" id="job_id" name="job_id" required>
     <option value="" disabled selected>Seleccionar</option>
       @foreach($jobs as $job)
       
@@ -181,7 +215,7 @@
   <div class="form-group row">
     <label for="inputEmail3" class="col-sm-2 col-form-label">Notas importantes</label>
     <div class="col-sm-10">
-     <textarea class="form-control" name="notas" id="notas" cols="5" rows="3">{{$employee->notas}}</textarea>
+     <textarea class="form-control" name="notas" id="notas" cols="5" rows="3" required>{{$employee->notas}}</textarea >
     </div>
   </div>
   <div class="col-sm-3">
@@ -255,71 +289,71 @@
         <div class="form-row">
             <div class="col">
                 <label for="">Estatura</label>
-                <input type="text" class="form-control" placeholder="mts" name="estatura" value="{{$employee->estatura}}">
+                <input type="text" class="form-control" placeholder="mts" name="estatura" value="{{$employee->estatura}}" required>
             </div>
             <div class="col">
                 <label for="">Peso</label>
-                <input type="text" class="form-control" placeholder="lbs" name="peso" value="{{$employee->peso}}">
+                <input type="text" class="form-control" placeholder="lbs" name="peso" value="{{$employee->peso}}" required>
             </div>
              <div class="col">
                 <label for="">Grupo sanguíneo</label>
-                <input type="text" class="form-control" name="grupo_sanguineo" value="{{$employee->grupo_sanguineo}}" >
+                <input type="text" class="form-control" name="grupo_sanguineo" value="{{$employee->grupo_sanguineo}}" required>
             </div>
         </div><br>
         <div class="form-row">
             <div class="col">
                 <label for="">En caso de emergencia comunicarse con</label>
-                <input type="text" class="form-control" placeholder="Nombre"  name="contacto_emergencia" value="{{$employee->contacto_emergencia}}">
+                <input type="text" class="form-control" placeholder="Nombre"  name="contacto_emergencia" value="{{$employee->contacto_emergencia}}" required>
             </div>
             <div class="col">
                 <label for="">Teléfono contacto de emergencia</label>
-                <input type="text" class="form-control"  name="telefono_emergencia" value="{{$employee->telefono_emergencia}}">
+                <input type="text" class="form-control"  name="telefono_emergencia" value="{{$employee->telefono_emergencia}}" required>
             </div>
         </div><br>
         <div class="form-row">
            
             <div class="col">
                 <label for="">Alergias</label>
-                <textarea class="form-control" name="alergias" id="alergias" cols="3" rows="3">{{$employee->alergias}}</textarea>
+                <textarea class="form-control" name="alergias" id="alergias" cols="3" rows="3" required>{{$employee->alergias}}</textarea>
             </div>
             <div class="col">
                 <label for="">Intolerancias</label>
-                <textarea class="form-control" name="intolerancias" id="intolerancias" cols="3" rows="3">{{$employee->intolerancias}}</textarea>
+                <textarea class="form-control" name="intolerancias" id="intolerancias" cols="3" rows="3" required>{{$employee->intolerancias}}</textarea>
             </div>
             <div class="col">
                 <label for="">Vacunas</label>
-                <textarea class="form-control" name="vacunas" id="vacunas" cols="3" rows="3">{{$employee->vacunas}}</textarea>
+                <textarea class="form-control" name="vacunas" id="vacunas" cols="3" rows="3" required>{{$employee->vacunas}}</textarea>
             </div>
             
         </div><br>
         <div class="form-row">  
                <label for="">Antecedentes familiares</label>
-               <textarea class="form-control" name="antecedentes_familiares" id="antecedentes_familiares" cols="3" rows="3">{{$employee->antecedentes_familiares}}</textarea>
+               <textarea class="form-control" name="antecedentes_familiares" id="antecedentes_familiares" cols="3" rows="3" required>{{$employee->antecedentes_familiares}}</textarea>
        </div><br>
         <div class="form-row">  
                <label for="">Enfermedades/Dolencias</label>
-               <textarea class="form-control" name="enfermedades_dolencias" id="enfermedades_dolencias" cols="3" rows="3">{{$employee->enfermedades_dolencias}}</textarea>
+               <textarea class="form-control" name="enfermedades_dolencias" id="enfermedades_dolencias" cols="3" rows="3" required>{{$employee->enfermedades_dolencias}}</textarea>
        </div><br>
 
         <div class="form-row">  
                <label for="">Cirugias y Transplantes</label>
-               <textarea class="form-control" name="cirugias_transplantes" id="cirugias_transplantes" cols="3" rows="3">{{$employee->cirugias_transplantes}}</textarea>
+               <textarea class="form-control" name="cirugias_transplantes" id="cirugias_transplantes" cols="3" rows="3" required>{{$employee->cirugias_transplantes}}</textarea>
        </div><br>
        <div class="form-row">  
                <label for="">Medicamentos</label>
-               <textarea class="form-control" name="medicamentos" id="medicamentos" cols="3" rows="3">{{$employee->medicamentos}}</textarea>
+               <textarea class="form-control" name="medicamentos" id="medicamentos" cols="3" rows="3" required>{{$employee->medicamentos}}</textarea>
        </div><br>
        <div class="form-row">  
                <label for="">Necesidades Especiales (médicas, religiosas o alimenticias)</label>
-               <textarea class="form-control" name="necesidades_especiales" id="necesidades_especiales" cols="3" rows="3">{{$employee->necesidades_especiales}}</textarea>
+               <textarea class="form-control" name="necesidades_especiales" id="necesidades_especiales" cols="3" rows="3" required>{{$employee->necesidades_especiales}}</textarea>
        </div><br>
        <div class="form-row">  
                <label for="">Contacto y nombre de su médico</label> 
-               <textarea class="form-control" name="medico_contacto" id="medico_contacto" cols="3" rows="3">{{$employee->medico_contacto}}</textarea>
+               <textarea class="form-control" name="medico_contacto" id="medico_contacto" cols="3" rows="3" required>{{$employee->medico_contacto}}</textarea>
        </div><br>
        <div class="form-row">  
                <label for="">NOTAS MEDICAS</label>
-               <textarea class="form-control" name="notas_medicas" id="notas_medicas" cols="3" rows="3">{{$employee->notas_medicas}}</textarea>
+               <textarea class="form-control" name="notas_medicas" id="notas_medicas" cols="3" rows="3" required>{{$employee->notas_medicas}}</textarea>
        </div><br>
       
       
@@ -370,9 +404,6 @@
                   <td>{{$queries->liquido_pagar}}</td>
                   <td>
 
-                 
-
-
                         <!-- Inicio Button trigger modal -->
 
                         <button type="button" class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteModal_{{$queries->id}}"><i class="fas fa-trash"></i></button>
@@ -404,10 +435,6 @@
 
                             <!-- fin Button trigger modal -->
 
-
-
-
-
                     </td>
                    
                </tr>
@@ -424,6 +451,74 @@
    
 </div>
 </div>
+
+
+<script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
+
+<script>
+
+function setInputFilter(textbox, inputFilter, errMsg) {
+["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop", "focusout"].forEach(function(event) {
+textbox.addEventListener(event, function(e) {
+if (inputFilter(this.value)) {
+  // Accepted value
+  if (["keydown","mousedown","focusout"].indexOf(e.type) >= 0){
+    this.classList.remove("input-error");
+    this.setCustomValidity("");
+  }
+  this.oldValue = this.value;
+  this.oldSelectionStart = this.selectionStart;
+  this.oldSelectionEnd = this.selectionEnd;
+} else if (this.hasOwnProperty("oldValue")) {
+  // Rejected value - restore the previous one
+  this.classList.add("input-error");
+  this.setCustomValidity(errMsg);
+  this.reportValidity();
+  this.value = this.oldValue;
+  this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+} else {
+  // Rejected value - nothing to restore
+  this.value = "";
+}
+});
+});
+}
+
+setInputFilter(document.getElementById("cedula"), function(value) {
+return /^\d*$/.test(value); }, "Solo números positivos");
+setInputFilter(document.getElementById("numero"), function(value) {
+  return /^\d*$/.test(value); }, "Solo números positivos");
+
+
+$(document).ready(function(){
+$('#wrong-cedula').hide();
+$('#wrong-phone').hide();
+
+
+});
+$('#cedula').keyup(function(e){
+if($(this).val().length === 10){
+e.preventDefault();
+$('#wrong-cedula').slideUp();
+} else {
+$('#wrong-cedula').slideDown();
+}
+
+});
+
+
+$('#numero').keyup(function(e){
+	if($(this).val().length === 10){
+  	e.preventDefault();
+    $('#wrong-phone').slideUp();
+  } else {
+  	$('#wrong-phone').slideDown();
+  }
+  	
+});
+
+
+</script>      
 
 @endsection 
 

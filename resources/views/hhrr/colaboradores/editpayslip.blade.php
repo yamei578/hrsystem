@@ -117,20 +117,20 @@
                      <td><input type="text" class="inputs" readonly value="{{$payslip->mes_anio}}" name="fecha_payroll"></td>
                      <td><input type="text" class="inputs" readonly value="{{$payslip->nombre}}" name="nombre"></td>
                      <td><input class="inputs" style="background-color: #D7E5FD" type="text" id="diasTrabajados" name="dias_trabajados" value="{{$payslip->dias_laborados}}"></td>
-                     <td><input readonly class="inputs" type="text" id="sueldoNominal" value="{{number_format($payslip->sueldo_nominal,2)}}" name="sueldo_nominal"></td>
-                     <td><input readonly class="inputs" type="text" value="{{number_format($payslip->sueldo_ganado,2)}}" id="sueldoGanado" name="sueldo_ganado"></td>
+                     <td><input readonly class="inputs" type="text" id="sueldoNominal" value="{{$payslip->sueldo_nominal}}" name="sueldo_nominal"></td>
+                     <td><input readonly class="inputs" type="text" value="{{$payslip->sueldo_ganado}}" id="sueldoGanado" name="sueldo_ganado"></td>
                      <td><input type="text" style="background-color: #D7E5FD;" class="inputs" value="{{$payslip->horas_suplementarias}}" id="horas50" name="horas_50"></td>
                      <td><input type="text" style="background-color: #D7E5FD" class="inputs" value="{{$payslip->horas_extras}}" id="horas100" name="horas_100"></td>
                      <td><input type="text" class="inputs" id="totalHoras" readonly value="{{$payslip->total_horas_extras}}" name="total_horas"></td>
-                     <td><input type="text" class="inputs" readonly value="{{number_format($payslip->valor_horas_extras,2)}}" id="valorHoras" name="valor_horas"></td>
+                     <td><input type="text" class="inputs" readonly value="{{$payslip->valor_horas_extras}}" id="valorHoras" name="valor_horas"></td>
                     
                      <td><input type="text" class="inputs" style="background-color: #D7E5FD" value="{{$payslip->comision}}"  id="comisionValor" name="comision_valor"></td>
-                     <td><input type="text" class="inputs" readonly value="{{number_format($payslip->total_ingresos,2)}}" name="total_ingresos" id="totalDeIngresos"></td>
-                     <td><input type="text" class="inputs" value="{{number_format($payslip->aporte_iess,2)}}" name="aporte_total" id="aporteTotal"></td>
+                     <td><input type="text" class="inputs" readonly value="{{$payslip->total_ingresos}}" name="total_ingresos" id="totalDeIngresos"></td>
+                     <td><input type="text" class="inputs" value="{{$payslip->aporte_iess}}" name="aporte_total" id="aporteTotal"></td>
                      <td><input type="text" class="inputs" style="background-color: #D7E5FD" value="{{$payslip->prestamos_quirografarios}}" id="prestamos" name="prestamos"></td>
                      <td><input type="text" class="inputs" style="background-color: #D7E5FD" value="{{$payslip->anticipos_prestamos}}" id="anticipos" name="anticipos"></td>
-                     <td><input type="text" class="inputs" readonly value="{{number_format($payslip->total_descuentos,2)}}" name="total_descuentos" id="aporteTotal2"></td>
-                     <td><input type="text" class="inputs" readonly value="{{number_format($payslip->liquido_pagar,2)}}" name="liquido_pagar" id="liquidoAPagar"></td>
+                     <td><input type="text" class="inputs" readonly value="{{$payslip->total_descuentos}}" name="total_descuentos" id="aporteTotal2"></td>
+                     <td><input type="text" class="inputs" readonly value="{{$payslip->liquido_pagar}}" name="liquido_pagar" id="liquidoAPagar"></td>
                       
                   </tr>
                   <input type="text" name="user_id" value="{{$payslip->user_id}}" hidden="true">
