@@ -7,7 +7,9 @@
 @section('content')
 
 
-
+@if(session('message'))
+    <div class="alert alert-danger">{{session('message')}}</div>
+@endif
 
 <h1>Generar rol de pagos por colaborador</h1>
 <br>

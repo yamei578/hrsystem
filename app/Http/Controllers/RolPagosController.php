@@ -298,9 +298,9 @@ public function payrollEmployee(){
         ]);
       
     }
-    catch(\Exception $e){
+    catch(\Exception $e){ 
      
-    return redirect()->back();
+    return redirect('hhrr/rolpagos/colaborador')->with('message','No se encontraron resultados. El colaborador debe tener marcaciones para generar el rol.');
 
     }
    
