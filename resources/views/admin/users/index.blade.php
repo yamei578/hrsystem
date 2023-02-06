@@ -67,7 +67,7 @@
                     <td>
                     @foreach($user->roles as $user_role)    
                     {{$user_role->name}}
-                    @endforeach
+                   @endforeach
                     </td>
             
                    <td>{{$user->department->name}}</td>
@@ -119,7 +119,7 @@
 
                              <!-- Inicio Button inactivar trigger modal -->
 
-                            <button type="button" class="btn btn-danger btn-circle btn-sm" data-toggle="modal" data-target="#inactivateUser_{{$user->id}}" @if ($user->status == 1) disabled @endif><i class="fas fa-trash"></i></button>
+                            <button type="button" class="btn btn-danger btn-circle btn-sm" data-toggle="modal" data-target="#inactivateUser_{{$user->id}}" @if ($user->status == 1 || $user_role->name == 'Admin') disabled @endif><i class="fas fa-trash"></i></button>
                                         <!-- Modal -->
                                         <div id="inactivateUser_{{$user->id}}" class="modal fade" role="dialog">
                                                         <div class="modal-dialog">
@@ -157,8 +157,8 @@
                     </td>
                     
                 </tr>
+                   
                     @endforeach
-                    
                     @endif 
 
                 </tbody>
