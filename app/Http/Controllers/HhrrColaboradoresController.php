@@ -99,21 +99,22 @@ class HhrrColaboradoresController extends Controller
     public function vacantesInternosIndex(){
         //devuelve vista del sidebar para HHRR vacantes internos
        // return view('hhrr.vacantes.internos');
-        $vacantes = User::find(Auth::user()->id)->vacantes()->get();
-        $departamentos = Department::all();
-        $vacantesInternos = Vacante::all();
-        $jobs = Job::all();
-        $users = Vacante::all();
 
-        $vacanteInterna = Vacante::with('users')->get();
-
+        $vacancy = User::with('vacantes')->get();
+       
+        foreach($vacancy as $interna){
+          
+            foreach($interna->vacantes as $users){
+               
+          $users->pivot->vacante_id;
+            }
+            
+        }
+       
         return view('hhrr.vacantes.internos',
         [
-        'departamentos'=>$departamentos,
-        'jobs'=>$jobs,
-        'vacantesInternos'=>$vacantesInternos,
-        'vacantes'=>$vacantes,
-        'vacanteInterna'=>$vacanteInterna
+        
+        'vacancy'=>$vacancy
         ]);
     }
 

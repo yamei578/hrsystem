@@ -3,7 +3,9 @@
 @section('content')
 
 
-
+@if(session('vacante-detached'))
+            <div class="alert alert-danger">{{session('vacante-detached')}}</div>
+@endif
 
 <h1>Aplicantes internos nuevos:</h1><br>
 
@@ -20,53 +22,33 @@
                     <th>Nombre colaborador</th>
                     <th>Puesto al que aplica</th>
                     <th>Departamento al que aplica</th>
-                    <th>Acciones</th>
+                 
                 </tr>
 
            </thead>
                 <tfoot>
             
                 </tfoot>
-               <!-- {{$vacanteInterna}} -->
+                
                 <tbody>
-                   @if($vacanteInterna)
-                   @foreach($vacanteInterna as $vacantes)
-                   @foreach($vacantes->users as $users_vacantes) 
+                @foreach($vacancy as $interna)
+                @foreach($interna->vacantes as $users)
+                 
                         <tr>
-                      
                             <td>
-                              
-                                {{$users_vacantes->name}}
+                        {{$interna->name}}
+                            </td>
+                            <td>
+                            {{$users->job->name}}
+                            </td>
+                            <td>
                            
+                    {{$users->department->name}}
+                                
                             </td>
-                            <td>
-                                {{$users_vacantes->job->name}}
-                            </td>
-                            <td>
-                                {{$users_vacantes->department->name}}
-                            </td>
-
-                            <td>
-                    <div class="form-group row">
-                        <div class="col-3">
-                            <form method="post" action="">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Está seguro que desea eliminar este aplicante?');"><i class="fas fa-trash"></i></button>
-
-                            </form>
-                        </div>  
-
-                   
-</div>
-
-         
-                    </td>
-                        
-                        @endforeach
+             
                     @endforeach
-                   @endif
-                   
+                    @endforeach
                 </tbody>
             </table>
         </div>
