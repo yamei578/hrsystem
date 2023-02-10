@@ -51,11 +51,13 @@ class JobController extends Controller
 
      public function attach(Job $job){
         $job->departments()->attach(request('department'));
+        session()->flash('job-department', 'Se asignó al departamento');
         return back();
     }
 
     public function detach(Job $job){
         $job->departments()->detach(request('department'));
+        session()->flash('job-sindepartment', 'Se quitó del departamento');
         return back();
     }
 

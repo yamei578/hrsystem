@@ -3,7 +3,15 @@
 
 @if(session('job-updated'))
             <div class="alert alert-success">{{session('job-updated')}}</div>
-    @endif
+@endif
+
+@if(session('job-department'))
+            <div class="alert alert-success">{{session('job-department')}}</div>
+@endif
+
+@if(session('job-sindepartment'))
+            <div class="alert alert-danger">{{session('job-sindepartment')}}</div>
+@endif
    
 <h1>Editar puesto de trabajo: {{$job->name}}</h1>
 
