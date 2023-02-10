@@ -60,7 +60,7 @@ class PDFController extends Controller
 
         
         $pdf = \PDF::loadView('prueba',$data);
-        return $pdf->download('salarios_vumilatina_colaboradores.pdf');
+        return $pdf->download('salarios_colaboradores.pdf');
 
     }
 
