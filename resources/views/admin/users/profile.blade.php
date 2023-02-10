@@ -73,6 +73,10 @@
 
 @section('content')
 
+@if(session('mensajeError'))
+            <div class="alert alert-danger">{{session('mensajeError')}}</div>
+@endif
+
 <h1>Perfil de : {{$user->name}}</h1>
 
 <div class="row">

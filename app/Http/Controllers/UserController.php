@@ -51,9 +51,8 @@ class UserController extends Controller
     public function update(User $user){
 
     
-
-
-      
+        try{
+            
         if(request('avatar')){
             $inputs['avatar'] = request('avatar')->store('images');
         }
@@ -88,6 +87,12 @@ class UserController extends Controller
         }
 
         return back();
+        }
+        catch(\Exception $e){
+            return back()->with('mensajeError','Nada ha sido actualizado. Revisar datos y que no haya información repetida con otros usuarios.');;
+        }
+
+      
     }
 
     public function attach(User $user){
