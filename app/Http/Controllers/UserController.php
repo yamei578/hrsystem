@@ -89,7 +89,7 @@ class UserController extends Controller
         return back();
         }
         catch(\Exception $e){
-            return back()->with('mensajeError','Nada ha sido actualizado. Revisar datos y que no haya información repetida con otros usuarios.');;
+            return back()->with('mensajeError','Nada ha sido actualizado. Revisar datos y que no haya información repetida con otros usuarios.');
         }
 
       
