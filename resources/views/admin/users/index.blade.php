@@ -118,6 +118,7 @@
                             </div>
 
                              <!-- Inicio Button inactivar trigger modal -->
+                             <div class="col-4">
 
                             <button type="button" class="btn btn-danger btn-circle btn-sm" data-toggle="modal" data-target="#inactivateUser_{{$user->id}}" @if ($user->status == 1 || $user_role->name == 'Admin') disabled @endif><i class="fas fa-trash"></i></button>
                                         <!-- Modal -->
@@ -148,7 +149,7 @@
 
                             <!-- fin Button trigger modal -->
 
-
+                            </div>
                             </div>
                        
                        
