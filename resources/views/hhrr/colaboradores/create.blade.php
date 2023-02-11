@@ -282,7 +282,7 @@
             </div>
             <div class="col">
                 <label for="">Teléfono contacto de emergencia</label>
-                <input type="text" name="telefono_emergencia" id="telefono_emergencia" class="form-control" required >
+                <input type="text" maxlength="10" name="telefono_emergencia" id="telefono_emergencia" class="form-control" required >
             </div>
         </div><br>
         <div class="form-row">

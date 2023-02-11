@@ -307,7 +307,7 @@
             </div>
             <div class="col">
                 <label for="">Teléfono contacto de emergencia</label>
-                <input type="text" class="form-control"  name="telefono_emergencia" value="{{$employee->telefono_emergencia}}" required>
+                <input type="text" maxlength="10" class="form-control"  name="telefono_emergencia" value="{{$employee->telefono_emergencia}}" required>
             </div>
         </div><br>
         <div class="form-row">
