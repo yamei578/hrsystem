@@ -68,7 +68,7 @@ class PDFController extends Controller
     public function certificadoLaboral(){
         $tipo = request('tipo_certificado');
 
-        setlocale(LC_ALL, 'es_EC');
+        setlocale(LC_ALL, 'es_EC.UTF-8');
        
         $user = Auth::user();
 
@@ -128,7 +128,7 @@ class PDFController extends Controller
         //payroll
 
     
-        setlocale(LC_ALL, 'es_EC');
+        setlocale(LC_ALL, 'es_EC.UTF-8');
        
         
         $fechaPayroll = $payslip->mes_anio;
