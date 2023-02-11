@@ -57,9 +57,9 @@ class UserController extends Controller
             $inputs['avatar'] = request('avatar')->store('images');
         }
 
-        $user->username = Str::ucfirst(request('username'));
+        $user->username = request('username');
         $user->employee_number = request('employee_number');
-        $user->name = request('name');
+        $user->name = ucwords(request('name'));
         $user->email = request('email');
         $user->department_id = request('department_id');
         $user->job_id = request('job_id');
@@ -192,15 +192,15 @@ class UserController extends Controller
         
      
        User::create([
-           'username' => request('username'),
-          'name' => request('name'),
-         'employee_number' => request('employee_number'),
-           'email' => request('email'),
-          'password' => request('password'),
-          'department_id' => request('department_id'),
-          'job_id' => request('job_id'),
-          'salario'=> request('salario'),
-          'fecha_ingreso'=> request('fecha_ingreso')
+        'username' => request('username'),
+        'name' => ucwords(request('name')),
+        'employee_number' => request('employee_number'),
+        'email' => request('email'),
+        'password' => request('password'),
+        'department_id' => request('department_id'),
+        'job_id' => request('job_id'),
+        'salario'=> request('salario'),
+        'fecha_ingreso'=> request('fecha_ingreso')
             //'password' => Hash::make($data['password']),
          
         ]);
