@@ -68,7 +68,7 @@ class PDFController extends Controller
     public function certificadoLaboral(){
         $tipo = request('tipo_certificado');
 
-        setlocale(LC_ALL, 'es_ES');
+        setlocale(LC_ALL, 'es_EC');
        
         $user = Auth::user();
 
@@ -84,8 +84,8 @@ class PDFController extends Controller
 
         $fechaLaboralCompleta = $day . " de " . ucfirst($spanishMonth) . " " . $year;
 
-        $nombreColaborador = strtoupper($user->name);
-        $trabajoColaborador = strtoupper($user->job->name);
+        $nombreColaborador = ucwords($user->name);
+        $trabajoColaborador = ucwords($user->job->name);
         $cedulaColaborador = $user->employee_number;
         $salario = $user->salario;
 
@@ -128,7 +128,7 @@ class PDFController extends Controller
         //payroll
 
     
-        setlocale(LC_ALL, 'es_ES');
+        setlocale(LC_ALL, 'es_EC');
        
         
         $fechaPayroll = $payslip->mes_anio;
@@ -141,10 +141,10 @@ class PDFController extends Controller
 
         $fechaLaboralCompleta = ucfirst($spanishMonth) . " " . $year;
        
-        $nombre = strtoupper($payslip->nombre);
+        $nombre = ucwords($payslip->nombre);
         $string = str_replace(' ', '', $nombre);
 
-        $cargo = strtoupper($payslip->user->job->name);
+        $cargo = ucwords($payslip->user->job->name);
         $cedula = $payslip->user->employee_number;
         $fecha_ingreso = $payslip->user->fecha_ingreso;
 
