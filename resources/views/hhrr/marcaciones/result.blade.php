@@ -5,14 +5,8 @@
 
 <div class="row-12">
 
-<div class="col-3">
-<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generar Reporte PDF</button>
-</div>
-
-
 <br>
-<div class="table-responsive">
+    <div class="table-responsive">
 <table class="table table-bordered" id="resultMarcs" width="100%" cellspacing="0">
                 <thead>
                 <tr>
@@ -51,8 +45,8 @@
       
 
             </table>
-        </div>
-        </div>
+    </div>
+</div>
 
 
 @endsection
