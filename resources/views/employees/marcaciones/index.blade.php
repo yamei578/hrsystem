@@ -136,9 +136,9 @@ renderTime();
     </select>
     </div>
     </div>
+<!-- style="display:none" --> 
 
-
-    <div class="col-sm-10" id="showButton" style="display:none">
+    <div class="col-sm-10" id="showButton" >
       <button type="submit" class="btn btn-primary">Marcar</button>
     </div>
   
@@ -320,24 +320,24 @@ window.addEventListener("load",function getLocation() {
 
     } else { 
         x.value = "Geolocation is not supported by this browser.";
-        hideDiv();
+       // hideDiv();
     }
 },false);
 
 function showPosition(position) {
     x.value= position.coords.latitude;
     y.value= position.coords.longitude;
-    showDiv();
+   // showDiv();
 }
 
 
-function showDiv() {
+/*function showDiv() {
 document.getElementById('showButton').style.display = "block";
 }
 
 function hideDiv() {
 document.getElementById('showButton').style.display = "none";
-}
+}*/
 
 
 </script>
