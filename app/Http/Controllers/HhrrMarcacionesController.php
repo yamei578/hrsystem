@@ -101,7 +101,7 @@ class HhrrMarcacionesController extends Controller
         
          //DD($user = DB::table('users')->select()->where('id','=',$user_id));
          //DD($query = DB::table('marcs')->whereDate('fecha_hora_marcacion')->where('user_id','=',$user->id)->get());
-        $query = DB::table('marcs')->select('users.name','marcs.fecha_hora_marcacion','config_marcs.name as nombreMarcacion')->whereDate('fecha_hora_marcacion', '>=', $fromDate)->whereDate('fecha_hora_marcacion', '<=', $toDate)->join('users','marcs.user_id','=','users.id')->join('config_marcs','marcs.marcacion_id','=','config_marcs.id')->where('user_id','=',$user_id)->get(); //ESTE
+        $query = DB::table('marcs')->select('users.name','marcs.fecha_hora_marcacion','marcs.latitud','marcs.longitud','config_marcs.name as nombreMarcacion')->whereDate('fecha_hora_marcacion', '>=', $fromDate)->whereDate('fecha_hora_marcacion', '<=', $toDate)->join('users','marcs.user_id','=','users.id')->join('config_marcs','marcs.marcacion_id','=','config_marcs.id')->where('user_id','=',$user_id)->get(); //ESTE
        // }
             
       //   $query = DB::table('marcs')->select()->whereDate('fecha_hora_marcacion', '>=', $fromDate)->where('fecha_hora_marcacion', '<=', $toDate)->get();

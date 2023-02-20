@@ -268,7 +268,9 @@ class EmployeeController extends Controller
             [
                 'user_id'=>$user->id,
                 'marcacion_id'=>request('marcacion_id'),
-                'fecha_hora_marcacion'=>request('fecha_hora_marcacion')
+                'fecha_hora_marcacion'=>request('fecha_hora_marcacion'),
+                'latitud'=>request('latitud'),
+                'longitud'=>request('longitud')
             ]
 
 

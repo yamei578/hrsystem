@@ -14,6 +14,8 @@
                     <th>Colaborador</th>
                     <th>Tipo de marcación</th>
                     <th>Fecha/Hora</th>
+                    <th>Latitud</th>
+                    <th>Longitud</th>
                     
                 </tr>
 
@@ -34,6 +36,8 @@
                     </td>
                     <td>{{$queries->nombreMarcacion}}</td>
                     <td>{{$queries->fecha_hora_marcacion}}</td>
+                    <td>{{$queries->latitud}}</td>
+                    <td>{{$queries->longitud}}</td>
                     
             
             

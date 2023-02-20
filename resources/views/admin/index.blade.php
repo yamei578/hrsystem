@@ -327,7 +327,7 @@ $(document).ready(function() {
 
 </div>
 
-@endif
+@endif 
 
 
 

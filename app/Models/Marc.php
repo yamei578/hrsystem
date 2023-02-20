@@ -12,7 +12,9 @@ class Marc extends Model
     protected $fillable = [
         'user_id',
         'marcacion_id',
-        'fecha_hora_marcacion'
+        'fecha_hora_marcacion',
+        'latitud',
+        'longitud'
     ];
 
     public function user(){

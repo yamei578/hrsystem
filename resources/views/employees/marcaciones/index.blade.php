@@ -1,4 +1,13 @@
 @extends('components.admin')
+<style>
+    input {
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+  
+}
+</style>
 <script>
 
 
@@ -41,7 +50,7 @@ function renderTime(){
 }
 renderTime();
 
-    
+
 </script>
 
 @section('content')
@@ -59,6 +68,48 @@ renderTime();
 <form method="post" action="{{route('colaborador.marcaciones.store')}}">
 @csrf 
  
+<div class="row">
+<div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Latitud</div>
+                                            
+                                          
+                                            <input class="h5 mb-0 font-weight-bold text-gray-800" type="text" name="latitud" id="latitud" readonly>
+                                          
+                                        </div>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+</div>
+
+<div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Longitud</div>
+                                           
+                                            <input class="h5 mb-0 font-weight-bold text-gray-800" type="text" name="longitud" id="longitud" readonly>
+                                        
+                                        </div>
+                                   
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+</div>
+
+
+</div>
 
   <div class="form-group row">
 
@@ -87,7 +138,7 @@ renderTime();
     </div>
 
 
-    <div class="col-sm-10">
+    <div class="col-sm-10" id="showButton" style="display:none">
       <button type="submit" class="btn btn-primary">Marcar</button>
     </div>
   
@@ -210,6 +261,8 @@ renderTime();
                     <th>Colaborador</th>
                     <th>Tipo de marcación</th>
                     <th>Fecha/Hora</th>
+                    <th>Latitud</th>
+                    <th>Longitud</th>
                    
                 </tr>
 
@@ -228,6 +281,8 @@ renderTime();
                     <td>{{$marcacionColaborador->marcacion->name}}</td>
                    
                     <td>{{$marcacionColaborador->fecha_hora_marcacion}}</td>
+                    <td>{{$marcacionColaborador->latitud}}</td>
+                    <td>{{$marcacionColaborador->longitud}}</td>
             
                 </tr>
         
@@ -239,6 +294,54 @@ renderTime();
     </div>
 </div>
         </div>
+
+
+
+
+        <script>
+var x = document.getElementById("latitud");
+var y = document.getElementById("longitud");
+const el = document.getElementById('showButton');
+
+window.addEventListener("load",function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            // Success function
+            showPosition, 
+            // Error function
+            null, 
+            // Options. See MDN for details.
+            {
+               enableHighAccuracy: true,
+               timeout: 5000,
+               maximumAge: 0
+            });
+           
+
+    } else { 
+        x.value = "Geolocation is not supported by this browser.";
+        hideDiv();
+    }
+},false);
+
+function showPosition(position) {
+    x.value= position.coords.latitude;
+    y.value= position.coords.longitude;
+    showDiv();
+}
+
+
+function showDiv() {
+document.getElementById('showButton').style.display = "block";
+}
+
+function hideDiv() {
+document.getElementById('showButton').style.display = "none";
+}
+
+
+</script>
+
 
 @endsection
  
