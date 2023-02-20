@@ -220,6 +220,7 @@
   </a>
   <div id="rol" class="collapse " aria-labelledby="headingPages" data-parent="#accordionSidebar">
     <div class="bg-white py-2 collapse-inner rounded">
+    <a class="collapse-item" href="{{route('hhrr.nomina.index')}}">Reporte Nómina</a>
       <a class="collapse-item" href="{{route('hhrr.rolpagos.index')}}">Rol sin variaciones</a>
       <a class="collapse-item" href="{{route('hhrr.rolpagos.colaborador')}}">Rol por colaborador</a>
     </div>

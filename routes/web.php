@@ -231,6 +231,12 @@ Route::put('hhrr/puestostrabajo/{job}/detach','App\Http\Controllers\JobControlle
 //HHRR ROL DE PAGOS
 Route::get('hhrr/rolpagos/index','App\Http\Controllers\RolPagosController@indexRolPagos')->name('hhrr.rolpagos.index');
 Route::get('hhrr/rolpagos/pdf','App\Http\Controllers\PDFController@pdf')->name('descargarPDF');
+Route::get('hhrr/nomina/index','App\Http\Controllers\RolPagosController@indexNomina')->name('hhrr.nomina.index');
+Route::post('hhrr/nomina/index','App\Http\Controllers\RolPagosController@storeMonthYear')->name('mesanio.store');
+Route::delete('hhrr/nomina/index/{payroll}/destroy', 'App\Http\Controllers\RolPagosController@destroyMonthYear')->name('monthyear.destroy');
+Route::get('hhrr/nomina/{payroll}/reporte', 'App\Http\Controllers\RolPagosController@reporteNomina')->name('payroll.result');
+Route::get('hhrr/nomina/{payroll}/reporte/pdf','App\Http\Controllers\PDFController@pdfNomina')->name('descargarPDFNomina');
+
 Route::get('hhrr/rolpagos/payslip/pdf','App\Http\Controllers\PDFController@pdfPersonalPayslip')->name('descargarPayslipPersonal');
 Route::get('hhrr/rolpagos/colaborador','App\Http\Controllers\RolPagosController@indexPorColaborador')->name('hhrr.rolpagos.colaborador');
 Route::get('hhrr/rolpagos/payrollgenerated','App\Http\Controllers\RolPagosController@payrollEmployee')->name('employeespay.search');

@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Models\User;
 use App\Models\Marc;
 use App\Models\Payroll;
+use App\Models\Monthyears;
 use App\Models\Payslip;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -82,6 +83,93 @@ class RolPagosController extends Controller
         
 
     }
+
+//INICIO NOMINA
+
+    public function indexNomina(){
+        // INDEX MES reporte de nomina
+        $monthYear = Monthyears::all();
+
+
+        //$users_salary = $users->salario;
+        return view('hhrr.rolpagos.nomina',
+        ['monthYear'=>$monthYear,
+            
+        ]);
+        
+
+    }
+
+    public function storeMonthYear(){
+        // INDEX MES reporte de nomina
+       
+        request()->validate([
+            'mes_anio'=>['required','regex:/^[0-9]{1,2}\\-[0-9]{4}$/']
+        ]);
+
+       
+
+        Monthyears::create([
+            'mes_anio'=>request('mes_anio')
+        ]);
+
+        session()->flash('mes-anio-agregado', 'Se agregó nuevo mes/año.');
+
+
+        return back();
+
+
+        
+        
+
+    }
+
+    public function reporteNomina(Monthyears $payroll){
+        // INDEX MES reporte de nomina
+        $monthYear = $payroll->mes_anio;
+        $payslip = Payslip::select()->where('mes_anio', '=', $monthYear)->get();
+    
+        $sueldoGanado = Payslip::selectRaw('SUM(sueldo_ganado) as sueldo_ganado')->where('mes_anio', '=', $monthYear)->get();
+        $valorHorasExtras = Payslip::selectRaw('SUM(valor_horas_extras) as valor_horas_extras')->where('mes_anio', '=', $monthYear)->get();
+        $comision = Payslip::selectRaw('SUM(comision) as comision')->where('mes_anio', '=', $monthYear)->get();
+        $totalIngresos = Payslip::selectRaw('SUM(total_ingresos) as total_ingresos')->where('mes_anio', '=', $monthYear)->get();
+        $aporte = Payslip::selectRaw('SUM(aporte_iess) as aporte_iess')->where('mes_anio', '=', $monthYear)->get();
+        $prestamos = Payslip::selectRaw('SUM(prestamos_quirografarios) as prestamos_quirografarios')->where('mes_anio', '=', $monthYear)->get();
+        $anticipos = Payslip::selectRaw('SUM(anticipos_prestamos) as anticipos_prestamos')->where('mes_anio', '=', $monthYear)->get();
+        $totalDescuentos = Payslip::selectRaw('SUM(total_descuentos) as total_descuentos')->where('mes_anio', '=', $monthYear)->get();
+        $liquido = Payslip::selectRaw('SUM(liquido_pagar) as liquido_pagar')->where('mes_anio', '=', $monthYear)->get();
+
+
+        return view('hhrr.rolpagos.nominames',
+        ['payroll'=>$payroll,
+         'payslip'=>$payslip,
+         'sueldoGanado'=>$sueldoGanado,
+         'valorHorasExtras'=>$valorHorasExtras,
+         'aporte'=>$aporte,
+         'totalDescuentos'=>$totalDescuentos,
+         'liquido'=>$liquido,
+         'totalIngresos'=>$totalIngresos,
+         'comision'=>$comision,
+         'prestamos'=>$prestamos,
+         'anticipos'=>$anticipos
+
+        ]);
+        
+
+    }
+
+    public function destroyMonthYear(Monthyears $payroll){
+
+        $payroll->delete();
+    
+        session()->flash('eliminado', 'Se ha eliminado.');
+    
+        return back();
+    
+    
+    }
+
+//FIN NOMINA
 
     public function store(){
         request()->validate([

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Payroll;
 use App\Models\Payslip;
+use App\Models\Monthyears;
 use Carbon\Carbon;
 use App\Models\Marc;
 use App\Models\ConfigMarc;
@@ -59,10 +60,49 @@ class PDFController extends Controller
         ];
 
         
-        $pdf = \PDF::loadView('prueba',$data);
+        $pdf = \PDF::loadView('prueba',$data)->setPaper('a4','landscape');
         return $pdf->download('salarios_colaboradores.pdf');
 
     }
+
+
+    public function pdfNomina(Monthyears $payroll){
+
+        //reporte de nomina
+        $monthYear = $payroll->mes_anio;
+        $payslip = Payslip::select()->where('mes_anio', '=', $monthYear)->get();
+    
+        $sueldoGanado = Payslip::selectRaw('SUM(sueldo_ganado) as sueldo_ganado')->where('mes_anio', '=', $monthYear)->get();
+        $valorHorasExtras = Payslip::selectRaw('SUM(valor_horas_extras) as valor_horas_extras')->where('mes_anio', '=', $monthYear)->get();
+        $comision = Payslip::selectRaw('SUM(comision) as comision')->where('mes_anio', '=', $monthYear)->get();
+        $totalIngresos = Payslip::selectRaw('SUM(total_ingresos) as total_ingresos')->where('mes_anio', '=', $monthYear)->get();
+        $aporte = Payslip::selectRaw('SUM(aporte_iess) as aporte_iess')->where('mes_anio', '=', $monthYear)->get();
+        $prestamos = Payslip::selectRaw('SUM(prestamos_quirografarios) as prestamos_quirografarios')->where('mes_anio', '=', $monthYear)->get();
+        $anticipos = Payslip::selectRaw('SUM(anticipos_prestamos) as anticipos_prestamos')->where('mes_anio', '=', $monthYear)->get();
+        $totalDescuentos = Payslip::selectRaw('SUM(total_descuentos) as total_descuentos')->where('mes_anio', '=', $monthYear)->get();
+        $liquido = Payslip::selectRaw('SUM(liquido_pagar) as liquido_pagar')->where('mes_anio', '=', $monthYear)->get();
+
+     
+        $data = [
+            'payroll'=>$payroll,
+            'payslip'=>$payslip,
+            'sueldoGanado'=>$sueldoGanado,
+            'valorHorasExtras'=>$valorHorasExtras,
+            'aporte'=>$aporte,
+            'totalDescuentos'=>$totalDescuentos,
+            'liquido'=>$liquido,
+            'totalIngresos'=>$totalIngresos,
+            'comision'=>$comision,
+            'prestamos'=>$prestamos,
+            'anticipos'=>$anticipos
+        ];
+
+        
+        $pdf = \PDF::loadView('nomina',$data)->setPaper('a4','landscape');
+        return $pdf->download('salarios_colaboradores.pdf');
+
+    }
+
 
 
     public function certificadoLaboral(){
