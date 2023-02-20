@@ -33,10 +33,9 @@ $(document).ready(function() {
 }
 </style>
 
-<h1>Dashboard</h1>
-
-
-
+<h1>Dashboard de: @if(Auth::check())
+{{auth()->user()->name}}
+@endif</h1>
 
 
 @if(auth()->user()->userHasRole('Admin'))
@@ -178,6 +177,60 @@ $(document).ready(function() {
 
 
 @if(!auth()->user()->userHasRole('Admin'))
+
+<div class="row">
+<div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Total de Ganancias</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            @if(!$userEarnings->isEmpty())
+                                              @foreach($userEarnings as $earnings)
+                                              ${{number_format($earnings->liquido_pagar,2)}}
+                                              @endforeach
+                                            @endif
+                                          </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+</div>
+
+<div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Solicitudes pendientes</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                              {{$userRequests}}
+                                          </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+</div>
+
+
+</div>
+
+
+
+
 
 <div class="row">
 <div class="col-sm-4">

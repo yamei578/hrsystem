@@ -8,6 +8,7 @@ Use App\Models\User;
 Use App\Models\Externo;
 Use App\Models\Job;
 Use App\Models\Role;
+Use App\Models\Payslip;
 Use App\Models\Sols;
 use DB;
 use Carbon\Carbon;
@@ -45,6 +46,10 @@ class HomeController extends Controller
 
       
        $user = Auth::user()->marcaciones;
+       $id = Auth::id(); 
+
+       $userEarnings = Payslip::selectRaw('SUM(liquido_pagar) as liquido_pagar')->where('user_id', '=', $id)->get();
+       $userRequests = Sols::where('user_id', '=', $id)->where('statusrrhh', '=', '0')->count();
      
        $datetime = Carbon::now()->toDateTimeString();
        $cur_date = Carbon::createFromFormat('Y-m-d H:i:s', $datetime)->isoFormat('YYYY-MM-DD'); 
@@ -137,7 +142,9 @@ class HomeController extends Controller
         'totalDuracionAlmuerzo'=>$totalDuracionAlmuerzo,
         'totalDuracionFeriado'=>$totalDuracionFeriado,
         'entradaFeriadoFecha'=>$entradaFeriadoFecha,
-        'salidaFeriadoFecha'=>$salidaFeriadoFecha
+        'salidaFeriadoFecha'=>$salidaFeriadoFecha,
+        'userEarnings'=>$userEarnings,
+        'userRequests'=>$userRequests
 
     
         ],
