@@ -63,10 +63,6 @@ renderTime();
 @if(session('marcacion-guardada'))
             <div class="alert alert-success">{{session('marcacion-guardada')}}</div>
     @endif
-
-
-    <h1> Laravel 9 Get Current User Location Using IP Address - Techsolutionstuff </h1>
-	<div style="border:1px solid black; margin-left: 300px; margin-right: 300px;">
 	
 	<h3>Country Name: {{ $data->countryName }}</h3>
 	<h3>Country Code: {{ $data->countryCode }}</h3>
