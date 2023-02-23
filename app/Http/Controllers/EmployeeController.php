@@ -24,7 +24,11 @@ class EmployeeController extends Controller
 {
     //
 
-    public function indexMarcacionesEmployees(){
+    public function indexMarcacionesEmployees(Request $request){
+
+        $ip = $request->ip();
+      
+        $data = \Location::get($ip);
         //retorna vista de sidebar index marcaciones de rol colaboradores
         //tiempo laboral
 
@@ -159,7 +163,8 @@ class EmployeeController extends Controller
         'totalDuracionAlmuerzo'=>$totalDuracionAlmuerzo,
         'totalDuracionFeriado'=>$totalDuracionFeriado,
         'entradaFeriadoFecha'=>$entradaFeriadoFecha,
-        'salidaFeriadoFecha'=>$salidaFeriadoFecha
+        'salidaFeriadoFecha'=>$salidaFeriadoFecha,
+        'data'=> $data
 
      
         ]);
