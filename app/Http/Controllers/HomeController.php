@@ -6,6 +6,7 @@ use App\Models\Department;
 use App\Models\Employee;
 Use App\Models\User;
 Use App\Models\Externo;
+Use App\Models\Vacante;
 Use App\Models\Job;
 Use App\Models\Role;
 Use App\Models\Payslip;
@@ -50,6 +51,8 @@ class HomeController extends Controller
 
        $userEarnings = Payslip::selectRaw('SUM(liquido_pagar) as liquido_pagar')->where('user_id', '=', $id)->get();
        $userRequests = Sols::where('user_id', '=', $id)->where('statusrrhh', '=', '0')->count();
+
+       $vacantesDisponibles = Vacante::where('status', '=', '1')->count();
      
        $datetime = Carbon::now()->toDateTimeString();
        $cur_date = Carbon::createFromFormat('Y-m-d H:i:s', $datetime)->isoFormat('YYYY-MM-DD'); 
@@ -144,7 +147,8 @@ class HomeController extends Controller
         'entradaFeriadoFecha'=>$entradaFeriadoFecha,
         'salidaFeriadoFecha'=>$salidaFeriadoFecha,
         'userEarnings'=>$userEarnings,
-        'userRequests'=>$userRequests
+        'userRequests'=>$userRequests,
+        'vacantesDisponibles'=>$vacantesDisponibles
 
     
         ],
