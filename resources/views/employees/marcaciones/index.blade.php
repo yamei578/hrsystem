@@ -59,7 +59,9 @@ renderTime();
 <h4 class="h3 mb-0 text-gray-800">Registrar marcación</h4><br>
 
 </div>
+@if ($data)
 <p>{{$data->countryName}}, {{$data->cityName}}</p>
+@endif
 
 @if(session('marcacion-guardada'))
             <div class="alert alert-success">{{session('marcacion-guardada')}}</div>
@@ -77,9 +79,9 @@ renderTime();
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Latitud</div>
                                             
-                                          
+                                          @if($data)
                                             <input class="h5 mb-0 font-weight-bold text-gray-800" type="text" name="latitud" value="{{$data->latitude}}" id="latitud" readonly>
-                                          
+                                          @endif
                                         </div>
                                       
                                     </div>
@@ -96,9 +98,9 @@ renderTime();
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Longitud</div>
-                                               
+                                            @if($data)
                                             <input class="h5 mb-0 font-weight-bold text-gray-800" type="text" name="longitud" id="longitud" value="{{$data->longitude}}" readonly>
-                                        
+                                            @endif
                                         </div>
                                    
                                     </div>
