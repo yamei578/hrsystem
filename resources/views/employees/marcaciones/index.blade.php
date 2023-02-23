@@ -64,17 +64,6 @@ renderTime();
             <div class="alert alert-success">{{session('marcacion-guardada')}}</div>
     @endif
 	
-	<h3>Country Name: {{ $data->countryName }}</h3>
-	<h3>Country Code: {{ $data->countryCode }}</h3>
-	<h3>Region Code: {{ $data->regionCode }}</h3>
-	<h3>Region Name: {{ $data->regionName }}</h3>
-	<h3>City Name: {{ $data->cityName }}</h3>
-	<h3>Zipcode: {{ $data->zipCode }}</h3>
-	<h3>Latitude: {{ $data->latitude }}</h3>
-	<h3>Longitude: {{ $data->longitude }}</h3>
-	</div>
-
-    
 <form method="post" action="{{route('colaborador.marcaciones.store')}}">
 @csrf 
  
@@ -88,7 +77,7 @@ renderTime();
                                                 Latitud</div>
                                             
                                           
-                                            <input class="h5 mb-0 font-weight-bold text-gray-800" type="text" name="latitud" id="latitud" readonly>
+                                            <input class="h5 mb-0 font-weight-bold text-gray-800" type="text" name="latitud" value="{{$data->latitude}}" id="latitud" readonly>
                                           
                                         </div>
                                       
@@ -106,8 +95,8 @@ renderTime();
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Longitud</div>
-                                           
-                                            <input class="h5 mb-0 font-weight-bold text-gray-800" type="text" name="longitud" id="longitud" readonly>
+                                               
+                                            <input class="h5 mb-0 font-weight-bold text-gray-800" type="text" name="longitud" id="longitud" value="{{$data->longitude}}" readonly>
                                         
                                         </div>
                                    
@@ -308,7 +297,7 @@ renderTime();
 
 
 
-        <script>
+<!--       <script>
 var x = document.getElementById("latitud");
 var y = document.getElementById("longitud");
 const el = document.getElementById('showButton');
@@ -351,7 +340,7 @@ document.getElementById('showButton').style.display = "none";
 }*/
 
 
-</script>
+</script>-->
 
 @endsection
  
