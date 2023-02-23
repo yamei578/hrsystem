@@ -24,9 +24,9 @@ class EmployeeController extends Controller
 {
     //
 
-    public function indexMarcacionesEmployees(Request $request){
+    public function indexMarcacionesEmployees(){
 
-        $ip = $request->ip();
+        $ip = request()->ip();
       
         $data = \Location::get($ip);
         //retorna vista de sidebar index marcaciones de rol colaboradores
