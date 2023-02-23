@@ -59,6 +59,7 @@ renderTime();
 <h4 class="h3 mb-0 text-gray-800">Registrar marcación</h4><br>
 
 </div>
+<p>{{$data->countryName}}, {{$data->cityName}}</p>
 
 @if(session('marcacion-guardada'))
             <div class="alert alert-success">{{session('marcacion-guardada')}}</div>
