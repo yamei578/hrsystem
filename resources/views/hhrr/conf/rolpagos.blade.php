@@ -64,8 +64,8 @@
                 <tr>
                 <td><a href="{{route('rolpagos.edit', $payroll->id)}}">{{$payroll->id}}</a></td>
                     <td>{{number_format($payroll->iess*100,2)}}%</a></td>
-                    <td>{{number_format($payroll->horas_extras*100,0)}}%</td>
-                    <td>{{number_format($payroll->horas_feriados*100,0)}}%</td>
+                    <td>{{number_format($payroll->horas_extras,2)}}</td>
+                    <td>{{number_format($payroll->horas_feriados,2)}}</td>
                    
                     <td>
                     <form method="post" action="{{route('rolpagos.destroy', $payroll->id)}}">

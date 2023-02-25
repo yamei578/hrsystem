@@ -287,7 +287,9 @@ public function payrollEmployee(){
        $queryHorasExtras = DB::table('marcs')->selectRaw('SUM(HOUR(marcs.horas_trabajadas)) as horasTotales')->whereDate('fecha_hora_marcacion', '>=', $fecha_desde)->whereDate('fecha_hora_marcacion', '<=', $fecha_hasta)->join('users','marcs.user_id','=','users.id')->join('config_marcs','marcs.marcacion_id','=','config_marcs.id')->where('user_id','=',$user_id)->where('marcs.marcacion_id','=','6')->get(); //ESTE
     
        $config_payroll = DB::table('payrolls')->select('iess')->get();
-    
+       $porcSuplementarias = DB::table('payrolls')->select('horas_extras')->get();
+       $porcExtras = DB::table('payrolls')->select('horas_feriados')->get();
+       
        $queryHorasSup2 = DB::table('marcs')->selectRaw('(HOUR(marcs.horas_trabajadas)) as horasTotales')->whereDate('fecha_hora_marcacion', '>=', $fecha_desde)->whereDate('fecha_hora_marcacion', '<=', $fecha_hasta)->join('users','marcs.user_id','=','users.id')->join('config_marcs','marcs.marcacion_id','=','config_marcs.id')->where('user_id','=',$user_id)->where('marcs.marcacion_id','=','2')->get()->toArray(); //ESTE
     
        //inicio horas 50%
@@ -323,10 +325,6 @@ public function payrollEmployee(){
         //$horasReales2 = intval($horasReales);
         $arrayHoras = $horasReales - $horasDiarias;
        
-        
-       // $numbers[] = array_push($nuevo);
-       // print_r(array_sum($numbers));
-        //xwprint_r(array_push($nuevo));
        }
     
       
@@ -336,7 +334,22 @@ public function payrollEmployee(){
     
        }
         $iessToInt2 = floatval($iessToInt);
-       
+
+        foreach($porcSuplementarias as $config_supl){
+            //porcentaje de configuracion horas suplementarias
+            $supToInt = $config_supl->horas_extras;
+        
+           }
+           $supToInt2 = floatval($supToInt);
+
+           foreach($porcExtras as $config_extras){
+            //porcentaje de configuracion horas extraordinarias
+            $extrasToInt = $config_extras->horas_feriados;
+        
+           }
+           $extrasToInt2 = floatval($extrasToInt);
+
+      // DD($prueba = (4*1.5)+(3*2)/100);
     
        $totalDiasLaborados = $query->count();
       
@@ -353,7 +366,7 @@ public function payrollEmployee(){
     
         //CALCULO 
         $horasSuplementariasTotal = $horasToInt2-$horasLaboralesMes;  
-        $totalHorasExtrasYSup = ($horas50*$porcentajeSuplementarias)+($horasExtrasToInt2*$porcentajeExtras);
+        $totalHorasExtrasYSup = ($horas50*$supToInt2)+($horasExtrasToInt2*$extrasToInt2);
         $valorHorasExtras = ($sueldoNominal/30)/(8)*$totalHorasExtrasYSup;
         $totalIngresos = $sueldoGanado+$valorHorasExtras;
         $descuentoIess = $totalIngresos*$iessToInt2;
@@ -382,7 +395,9 @@ public function payrollEmployee(){
         'user_id'=>$user_id,
         'fecha_desde'=>$fecha_desde,
         'fecha_hasta'=>$fecha_hasta,
-        'iessToInt2'=>$iessToInt2
+        'iessToInt2'=>$iessToInt2,
+        'supToInt2'=>$supToInt2,
+        'extrasToInt2'=>$extrasToInt2
         ]);
       
     }

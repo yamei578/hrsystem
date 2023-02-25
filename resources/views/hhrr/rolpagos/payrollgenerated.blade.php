@@ -25,9 +25,10 @@
     //total hrs extras
     var horasSuplementarias = document.getElementById('horas50');
     var horasExtraordinarias = document.getElementById('horas100');
-    let valorSuplementarias = 1.5;
-    let valorExtraordinarias = 2;
+   
 
+    var valorSuplementarias = document.getElementById('supToInt2').value;
+    var valorExtraordinarias = document.getElementById('extrasToInt2').value;
     var totalHorasExtras = parseFloat((horasSuplementarias.value)*valorSuplementarias) + parseFloat((horasExtraordinarias.value)*valorExtraordinarias);
     $('#totalHoras').val(totalHorasExtras.toFixed(2));
 
@@ -140,7 +141,9 @@
                   <input type="text" name="user_id" value="{{$user_id}}" hidden="true">
                   <input type="text" name="fecha_desde" value="{{$fecha_desde}}" hidden="true">
                   <input type="text" name="fecha_hasta" value="{{$fecha_hasta}}" hidden="true">
-                  <input type="text" id="iessToInt2" value="{{$iessToInt2}}" hidden="true" >
+                  <input type="text" id="iessToInt2" value="{{$iessToInt2}}" hidden="true">
+                  <input type="text" id="supToInt2" value="{{$supToInt2}}" hidden="true">
+                  <input type="text" id="extrasToInt2" value="{{$extrasToInt2}}" hidden="true">
                   <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Guardar rol generado del colaborador</button><br>
                   </form>
                   </tbody><br>
