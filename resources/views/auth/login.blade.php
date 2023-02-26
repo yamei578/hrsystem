@@ -23,7 +23,7 @@
 <body class="bg-gradient-primary">
 
     <div class="container">
-        <img src="resources/images/vumi_logo.png" alt="">
+        
 
 <!-- Outer Row -->
 <div class="row justify-content-center">
