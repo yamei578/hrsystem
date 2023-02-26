@@ -36,7 +36,7 @@
                 <div class="col-sm">
                     <p><b>Sueldo</b></p>
                     <p><b>Horas suplementarias</b></p>
-                    <p><b>Horas extras</b></p>
+                    <p><b>Horas extraordinarias</b></p>
                     <p><b>Valor Horas extras</b></p>
                     <p><b>Comisiones</b></p>
                     <h6><b>TOTAL INGRESOS</b></h6>
