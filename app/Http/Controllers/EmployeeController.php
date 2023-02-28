@@ -12,6 +12,8 @@ use App\Models\Payslip;
 use App\Models\Sols;
 use App\Models\Role;
 use App\Models\Vacante;
+use App\Models\Impuesto;
+use App\Models\EmployeeTax;
 use App\Models\Employee;
 use App\Models\Department;
 use App\Models\Job;
@@ -28,7 +30,7 @@ class EmployeeController extends Controller
 
     public function indexMarcacionesEmployees(Request $request){
 
-       $ip = $request->ip();
+        $ip = $request->ip();
       
         $data = \Location::get($ip);
         //retorna vista de sidebar index marcaciones de rol colaboradores
@@ -327,6 +329,237 @@ class EmployeeController extends Controller
         return view('employees.autogestion.certificados',[
             'user'=>$user
         ]);
+
+    }
+
+    //AUTOGESTION FORMULARIO GASTOS IMPUESTO A LA RENTA
+
+    public function indexTaxForm(){
+        $userTaxes = Auth::user()->taxes;
+        $aplica = false;
+        $meses = 12;
+        $userSalary = Auth::user()->salario; 
+
+        $salarioAnual = $meses * $userSalary;
+
+        if ($salarioAnual >= 11000){
+             $aplica = true;
+        }
+
+        return view('employees.autogestion.indexformulario',[
+            'aplica'=>$aplica,
+            'userTaxes'=>$userTaxes
+        ]);
+    }
+
+    public function indexFormularioImpuestoRenta(){
+
+        $aplica = false;
+        $meses = 12;
+        $userSalary = Auth::user()->salario; 
+
+        $salarioAnual = $meses * $userSalary;
+
+        if ($salarioAnual >= 11000){
+             $aplica = true;
+        }
+
+        $config_payroll = DB::table('payrolls')->select('iess')->get();
+        $impuestos = DB::table('impuestos')->get(); //traer toda la tabla
+
+        foreach($config_payroll as $config_pay){
+            $iessToInt = $config_pay->iess;
+        
+           }
+            $iessToInt2 = floatval($iessToInt);
+
+            $calculoIess = $salarioAnual * $iessToInt2;
+            $baseImponibleInicial = $salarioAnual - $calculoIess;
+
+            $baseImponibleFinal = request('baseImponible');
+            $vestimenta = request('vestimenta');
+            $anio = request('anio');
+            $sueldo_anual = request('sueldo_anual');
+            $total_ingresos = request('total_ingresos');
+            $alimentacion = request('alimentacion');
+            $vivienda = request('vivienda');
+            $recreacion = request('recreacion');
+            $salud = request('salud');
+            $total_deduccion_personales = request('total_deduccion_personales');
+            $deduccion_iess = request('deduccion_iess');
+            $otrosGastos = request('otrosGastos');
+            $total_deducciones = request('total_deducciones');
+            $deduccion_iess = request('deduccion_iess');
+          
+            $fraccionBasica = DB::select("select fraccion_basica, impuesto_fraccion_basica, impuesto_fraccion_excedente from impuestos where '$baseImponibleFinal' between fraccion_basica and exceso_hasta");
+     
+            foreach($fraccionBasica as $fraccionBasica2){
+             $fraccionBasicaTotal = $fraccionBasica2->fraccion_basica;
+             $impuestoFraccionBasica = $fraccionBasica2->impuesto_fraccion_basica;
+             $impuestoFraccionExcedente = $fraccionBasica2->impuesto_fraccion_excedente;
+            }
+     
+            $fraccionExcedente = $baseImponibleFinal - $fraccionBasicaTotal;
+            $valorMultiplicado = $fraccionExcedente * $impuestoFraccionExcedente;
+            $impuestoAPagar = $valorMultiplicado + $impuestoFraccionBasica;
+
+           
+        
+
+        return view('employees.autogestion.formulario',[
+            'userSalary'=>$userSalary,
+            'aplica'=>$aplica,
+            'salarioAnual'=>$salarioAnual,
+            'calculoIess'=>$calculoIess,
+            'baseImponibleInicial'=>$baseImponibleInicial,
+            'impuestos'=>$impuestos,
+            'impuestoAPagar'=>$impuestoAPagar,
+            'vestimenta'=>$vestimenta,
+            'anio'=>$anio,
+            'sueldo_anual'=>$sueldo_anual,
+            'total_ingresos'=>$total_ingresos,
+            'alimentacion' => $alimentacion,
+            'vivienda' => $vivienda,
+            'recreacion' => $recreacion,
+            'salud' => $salud,
+            'total_deduccion_personales' => $total_deduccion_personales,
+            'deduccion_iess' => $deduccion_iess,
+            'otrosGastos' => $otrosGastos,
+            'total_deducciones' => $total_deducciones,
+            'deduccion_iess' => $deduccion_iess,
+            'baseImponibleFinal'=>$baseImponibleFinal
+        ]);
+    }
+
+    public function calculateTax(){
+
+        $aplica = false;
+        $meses = 12;
+        $userSalary = Auth::user()->salario; 
+
+        $salarioAnual = $meses * $userSalary;
+
+        if ($salarioAnual >= 11000){
+             $aplica = true;
+        }
+
+        $config_payroll = DB::table('payrolls')->select('iess')->get();
+        $impuestos = DB::table('impuestos')->get(); //traer toda la tabla
+
+        foreach($config_payroll as $config_pay){
+            $iessToInt = $config_pay->iess;
+        
+           }
+            $iessToInt2 = floatval($iessToInt);
+
+            $calculoIess = $salarioAnual * $iessToInt2;
+            $baseImponibleInicial = $salarioAnual - $calculoIess;
+
+           $baseImponibleFinal = request('baseImponible');
+           $vestimenta = request('vestimenta');
+           $anio = request('anio');
+           $sueldo_anual = request('sueldo_anual');
+           $total_ingresos = request('total_ingresos');
+           $alimentacion = request('alimentacion');
+           $vivienda = request('vivienda');
+           $recreacion = request('recreacion');
+           $salud = request('salud');
+           $total_deduccion_personales = request('total_deduccion_personales');
+           $deduccion_iess = request('deduccion_iess');
+           $otrosGastos = request('otrosGastos');
+           $total_deducciones = request('total_deducciones');
+           $deduccion_iess = request('deduccion_iess');
+              
+            $fraccionBasica = DB::select("select fraccion_basica, impuesto_fraccion_basica, impuesto_fraccion_excedente from impuestos where '$baseImponibleFinal' between fraccion_basica and exceso_hasta");
+     
+            foreach($fraccionBasica as $fraccionBasica2){
+             $fraccionBasicaTotal = $fraccionBasica2->fraccion_basica;
+             $impuestoFraccionBasica = $fraccionBasica2->impuesto_fraccion_basica;
+             $impuestoFraccionExcedente = $fraccionBasica2->impuesto_fraccion_excedente;
+            }
+     
+            $fraccionExcedente = $baseImponibleFinal - $fraccionBasicaTotal;
+            $valorMultiplicado = $fraccionExcedente * $impuestoFraccionExcedente;
+            $impuestoAPagar = $valorMultiplicado + $impuestoFraccionBasica;
+
+           
+        
+
+        return view('employees.autogestion.formulario',[
+            'userSalary'=>$userSalary,
+            'aplica'=>$aplica,
+            'salarioAnual'=>$salarioAnual,
+            'calculoIess'=>$calculoIess,
+            'baseImponibleInicial'=>$baseImponibleInicial,
+            'impuestos'=>$impuestos,
+            'impuestoAPagar'=>$impuestoAPagar,
+            'vestimenta'=>$vestimenta,
+            'anio'=>$anio,
+            'sueldo_anual'=>$sueldo_anual,
+            'total_ingresos'=>$total_ingresos,
+            'alimentacion' => $alimentacion,
+            'vivienda' => $vivienda,
+            'recreacion' => $recreacion,
+            'salud' => $salud,
+            'total_deduccion_personales' => $total_deduccion_personales,
+            'deduccion_iess' => $deduccion_iess,
+            'otrosGastos' => $otrosGastos,
+            'total_deducciones' => $total_deducciones,
+            'deduccion_iess' => $deduccion_iess,
+            'baseImponibleFinal'=>$baseImponibleFinal
+
+        ]);
+    }
+
+    public function storeTax(){
+        $user = Auth::user();
+
+        $user->taxes()->create(
+            [
+                'user_id'=>$user->id,
+                'anio'=>request('anio'),
+                'sueldo_anual'=>request('sueldo_anual'),
+                'total_ingresos'=>request('total_ingresos'),
+                'alimentacion'=>request('alimentacion'),
+                'vivienda'=>request('vivienda'),
+                'recreacion'=>request('recreacion'),
+                'vestimenta'=>request('vestimenta'),
+                'salud'=>request('salud'),
+                'total_deduccion_personales'=>request('total_deduccion_personales'),
+                'deduccion_iess'=>request('deduccionIess'),
+                'otros_gastos'=>request('otrosGastos'),
+                'total_deducciones'=>request('total_deducciones'),
+                'base_imponible'=>request('baseImponible'),
+                'impuesto_por_pagar'=>request('impuestoAPagar')
+            ]
+
+
+        );
+
+      //  session()->flash('tax-added', 'Se ha guardado tu formulario de impuestos a la renta.');
+
+        return redirect('colaborador/autogestion/formulario/impuesto/renta/index')->with('tax-added','Se ha guardado tu formulario de impuestos a la renta.');
+      //  return view ('employees.autogestion.formulario');
+    
+    }
+
+    public function editTaxes(EmployeeTax $taxes){
+
+
+
+        return view('employees.autogestion.editformulario',
+        ['taxes'=>$taxes
+        ]);
+    }
+
+    public function destroyTaxes(EmployeeTax $taxes){
+
+        $taxes->delete();
+
+        session()->flash('tax-deleted', 'Se ha eliminado el registro.');
+
+        return back();
+
 
     }
 

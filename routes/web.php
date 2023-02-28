@@ -291,6 +291,7 @@ Route::get('hhrr/config/{payrolls}/edit','App\Http\Controllers\RolPagosControlle
 Route::put('hhrr/config/{payrolls}/update', 'App\Http\Controllers\RolPagosController@update')->name('rolpagos.update');
 
 
+Route::post('hhrr/config/roldepagos/index','App\Http\Controllers\RolPagosController@storeImpuesto')->name('impuestos.store');
 
 
 //FORMULARIO SOLICITUDES
@@ -337,11 +338,20 @@ Route::get('colaborador/autogestion/roles/index','App\Http\Controllers\EmployeeC
 Route::get('colaborador/autogestion/roles/{payslip}/show', 'App\Http\Controllers\EmployeeController@showEmployeePayslip')->name('employee.payslip.show');
 Route::get('colaborador/autogestion/roles/{payslip}/pdf','App\Http\Controllers\PDFController@payslipPDF')->name('descargarPayslipPDF');
 
+
 //AUTOGESTION CERTIFICADOS
 
 Route::get('colaborador/autogestion/certificados/index','App\Http\Controllers\EmployeeController@indexCertificadosColaboradores')->name('autogestion.colaboradores.certificados.index');
 Route::post('colaborador/autogestion/certificados/index/pdf','App\Http\Controllers\PDFController@certificadoLaboral')->name('descargarLaboral');
 
+//AUTOGESTION FORMULARIO GASTOS
+Route::get('colaborador/autogestion/formulario/impuesto/renta/index','App\Http\Controllers\EmployeeController@indexTaxForm')->name('autogestion.colaboradores.formulario.impuesto.index');
+Route::get('colaborador/autogestion/formulario/impuesto/renta','App\Http\Controllers\EmployeeController@indexFormularioImpuestoRenta')->name('autogestion.colaboradores.formulario.impuesto');
+Route::get('colaborador/autogestion/formulario/impuesto/renta/calculate','App\Http\Controllers\EmployeeController@calculateTax')->name('calculateTax');
+//Route::post('colaborador/autogestion/formulario/impuesto/renta/calculate','App\Http\Controllers\EmployeeController@calculateTax')->name('calculateTax');
+Route::post('colaborador/autogestion/formulario/impuesto/renta/calculate','App\Http\Controllers\EmployeeController@storeTax')->name('store.tax');
+Route::get('colaborador/autogestion/formulario/impuesto/renta/{taxes}/view', 'App\Http\Controllers\EmployeeController@editTaxes')->name('edit.tax');
+Route::delete('colaborador/autogestion/formulario/impuesto/renta/{taxes}/destroy', 'App\Http\Controllers\EmployeeController@destroyTaxes')->name('destroy.taxes');
 
 //COLABORADORES FIN!
 

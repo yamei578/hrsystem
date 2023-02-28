@@ -37,6 +37,8 @@ class HomeController extends Controller
     public function index()
     {
         //mostrar count the users registered para admin dashboard
+        $aplica = false;
+        $meses = 12;
        $users = User::all()->count();
        $departments = Department::all()->count();
        $employees = Employee::all()->count();
@@ -44,6 +46,14 @@ class HomeController extends Controller
        $vacantesExternas = Externo::all()->count();
        $roles = Role::all()->count();
        $solicitudes = Sols::where('statusrrhh', '=', '0')->count();
+
+       $userSalary = Auth::user()->salario; 
+
+       $salarioAnual = $meses * $userSalary;
+
+       if ($salarioAnual >= 11000){
+            $aplica = true;
+       }
 
       
        $user = Auth::user()->marcaciones;
@@ -148,7 +158,8 @@ class HomeController extends Controller
         'salidaFeriadoFecha'=>$salidaFeriadoFecha,
         'userEarnings'=>$userEarnings,
         'userRequests'=>$userRequests,
-        'vacantesDisponibles'=>$vacantesDisponibles
+        'vacantesDisponibles'=>$vacantesDisponibles,
+        'aplica'=>$aplica
 
     
         ],

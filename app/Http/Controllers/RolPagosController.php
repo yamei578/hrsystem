@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
+use App\Models\Impuesto;
 use App\Models\Marc;
 use App\Models\Payroll;
 use App\Models\Monthyears;
@@ -26,9 +27,11 @@ class RolPagosController extends Controller
     public function index(){
         //index de configuraciones
         $payrolls = Payroll::all();
+        $impuestos = Impuesto::all();
        return view('hhrr.conf.rolpagos',
     [
-        'payrolls'=>$payrolls
+        'payrolls'=>$payrolls,
+        'impuestos'=>$impuestos
     ]);
 
        /* $employees = Employee::all();
@@ -203,8 +206,10 @@ class RolPagosController extends Controller
 
  public function edit(Payroll $payrolls){
 
+    $impuestos = Impuesto::all();
     return view('hhrr.conf.editrolpagos',
-    ['payrolls'=>$payrolls
+    ['payrolls'=>$payrolls,
+    'impuestos'=>$impuestos
   
     ]);
 
@@ -228,6 +233,35 @@ public function update(Payroll $payrolls){
     return back();
 
  }
+
+
+ //inicio de configuracion para impuesto a la renta
+
+ public function storeImpuesto(){
+    request()->validate([
+        'fraccion_basica'=>['required'],
+        'exceso_hasta'=>['required'],
+        'impuesto_fraccion_basica'=>['required'],
+        'impuesto_fraccion_excedente'=>['required']
+    ]);
+
+    Impuesto::create([
+        'fraccion_basica'=>request('fraccion_basica'),
+        'exceso_hasta'=>request('exceso_hasta'),
+        'impuesto_fraccion_basica'=>request('impuesto_fraccion_basica'),
+        'impuesto_fraccion_excedente'=>request('impuesto_fraccion_excedente')
+    ]);
+
+    session()->flash('impuesto-agregado', 'Se ha agregado nuevo registro a la tabla para pago del impuesto a la renta.');
+
+    return back();
+}
+
+
+
+ //fin de configuracion para impuesto a la renta
+
+
 
  public function indexPorColaborador(){
     //index de modulo rol de pagos HHRR muestra salarios sin variaciones
@@ -372,6 +406,14 @@ public function payrollEmployee(){
         $descuentoIess = $totalIngresos*$iessToInt2;
         $totalDescuentos = $descuentoIess;
         $liquidoAPagar = $totalIngresos-$totalDescuentos;
+
+
+         //inicio calculo impuesto a la renta sin gastos 
+         
+
+         //fin calculo impuesto a la renta
+
+
         return view('hhrr.rolpagos.payrollgenerated',
         ['query'=>$query,
         'fecha_desde'=>$fecha_desde,

@@ -91,6 +91,13 @@ class User extends Authenticatable
 
     }
 
+    public function taxes(){
+        
+        return $this->hasMany('App\Models\EmployeeTax');
+      
+
+    }
+
     public function vacantesinternos(){
         
         return $this->hasMany('App\Models\Vacante');

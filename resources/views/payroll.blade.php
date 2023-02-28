@@ -89,7 +89,7 @@
                             <td>${{$payslip->prestamos_quirografarios}}</td>
                         </tr>
                         <tr>
-                            <th scope="row">Horas extras</th>
+                            <th scope="row">Horas extraordinarias</th>
                             <td>{{$payslip->horas_extras}}</td>
                             <th scope="row">Prést. Y Antic. Empresa</th>
                             <td>${{$payslip->anticipos_prestamos}}</td>

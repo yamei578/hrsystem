@@ -138,6 +138,7 @@
   <div id="autogestioncolaboradores" class="collapse " aria-labelledby="headingPages" data-parent="#accordionSidebar">
     <div class="bg-white py-2 collapse-inner rounded">
       <a class="collapse-item" href="{{route('autogestion.colaboradores.roles.index')}}">Roles de pago</a>
+      <a class="collapse-item" href="{{route('autogestion.colaboradores.formulario.impuesto.index')}}">Formulario gastos</a>
       <a class="collapse-item" href="{{route('autogestion.colaboradores.certificados.index')}}">Certificados</a>
     </div>
   </div>
