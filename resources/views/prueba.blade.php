@@ -68,7 +68,7 @@ body{
     <div class="card-header py-3">
 
        <!-- <img src="/Users/yameilama/Desktop/vumi_hr_system/public/vumilatina_logo.png" alt="" width="200px" >-->
-    <p>Tipo de reporte: Salarios Colaboradores sin variaciones</p>
+    <p>Tipo de reporte: Costo Empleado</p>
     <p>Fecha de reporte: {{$today}}</p>
 
     </div>
@@ -83,8 +83,9 @@ body{
                 <tr>
                     <th>Colaborador</th>
                     <th>Salario</th>
-                    <th>Descuento IESS</th>
-                    <th>Salario Total</th>
+                    <th>Aporte Patronal</th>
+                    <th>Fondo de Reserva</th>
+                    <th>Costo Total</th>
                 </tr>
 
            </thead>
@@ -97,9 +98,10 @@ body{
                     <td>{{$user->name}}</td>
                     <td>${{number_format(($user->salario), 2)}}</td>
                   
-                    <td>${{ number_format($payslipIessDiscount = (($user->salario)*$payroll_iess), 2) }}</td>
+                    <td>${{ number_format($payslipAportePatronal = (($user->salario)*$payroll_aporte_patronal), 2) }}</td>
+                    <td>${{ number_format($payslipFondoReserva = (($user->salario)*$payroll_fondo_reserva), 2) }}</td>
         
-                    <td>${{ number_format($total = (($user->salario)-$payslipIessDiscount), 2) }}</td>
+                    <td>${{ number_format($total = (($user->salario)-$payslipAportePatronal-$payslipFondoReserva), 2) }}</td>
                     
                   
             
@@ -127,8 +129,17 @@ body{
                     <td>
                         
                         <p><strong>
+                        ${{$payslipIessAporteTotal}}
                        
-                        ${{$payslipIessDiscountTotal}}
+                
+                        </strong></p>
+                    
+                    </td>
+                    <td>
+                        
+                        <p><strong>
+                       
+                        ${{$payslipIessFondoTotal}}
                 
                         </strong></p>
                     

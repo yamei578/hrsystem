@@ -27,6 +27,8 @@ class PDFController extends Controller
        
         foreach($payrolls as $payroll){
             $payroll_iess = $payroll->iess;
+            $payroll_aporte_patronal = $payroll->aporte_patronal;
+            $payroll_fondo_reserva = $payroll->fondo_reserva;
         }
         $today = Carbon::today()->toDateString();
 
@@ -35,28 +37,40 @@ class PDFController extends Controller
             $payslipIessDiscount = $salarioUser*$payroll_iess;
             $salariosTotales = number_format((($user->sum('salario'))), 2);
             $payslipIessDiscountTotal = number_format((($user->sum('salario'))*$payroll_iess), 2);
-
-
+            $payslipAportePatronal = $salarioUser*$payroll_aporte_patronal;
+            $payslipFondoReserva = $salarioUser*$payroll_fondo_reserva;
+            
+            $payslipIessAporteTotal = number_format((($user->sum('salario'))*$payroll_aporte_patronal), 2);
+            $payslipIessFondoTotal = number_format((($user->sum('salario'))*$payroll_fondo_reserva), 2);
 
 
             $salariosTotales2 = $user->sum('salario');
             $payslipIessDiscountTotal2 = $user->sum('salario')*$payroll_iess;
+            $payslipAportePatronal2 = $user->sum('salario')*$payroll_aporte_patronal;
+            $payslipFondoReserva2 = $user->sum('salario')*$payroll_fondo_reserva;
 
-            $totalSalarios = $salariosTotales2 - $payslipIessDiscountTotal2;
+            $totalSalarios = $salariosTotales2  - $payslipAportePatronal2 - $payslipFondoReserva2;
+      
       
         }
      
         $data = [
-        'users'=>$users,
-        'payslipIessDiscount'=>$payslipIessDiscount,
-        'salarioUser'=>$salarioUser,
-        'payroll_iess'=>$payroll_iess,
-        'salariosTotales'=>$salariosTotales,
-        'payslipIessDiscountTotal'=>$payslipIessDiscountTotal,
-        'totalSalarios'=>$totalSalarios,
-        'salariosTotales2'=>$salariosTotales2,
-        'payslipIessDiscountTotal2'=>$payslipIessDiscountTotal2,
-        'today'=>$today
+            'users'=>$users,
+            'payslipIessDiscount'=>$payslipIessDiscount,
+            'salarioUser'=>$salarioUser,
+            'payroll_iess'=>$payroll_iess,
+            'salariosTotales'=>$salariosTotales,
+            'payslipIessDiscountTotal'=>$payslipIessDiscountTotal,
+            'totalSalarios'=>$totalSalarios,
+            'salariosTotales2'=>$salariosTotales2,
+            'payslipIessDiscountTotal2'=>$payslipIessDiscountTotal2,
+            'payroll_aporte_patronal'=>$payroll_aporte_patronal,
+            'payroll_fondo_reserva'=>$payroll_fondo_reserva,
+            'payslipAportePatronal'=>$payslipAportePatronal,
+            'payslipFondoReserva'=>$payslipFondoReserva,
+            'payslipIessAporteTotal'=>$payslipIessAporteTotal,
+            'payslipIessFondoTotal'=>$payslipIessFondoTotal,
+            'today'=>$today
         ];
 
         
