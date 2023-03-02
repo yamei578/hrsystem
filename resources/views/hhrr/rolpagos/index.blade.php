@@ -21,7 +21,7 @@
         <div class="card shadow mb-4">
             
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">SUELDOS COLABORADORES SIN VARIACIONES</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Reporte Costo Empleado</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -30,8 +30,9 @@
                 <tr>
                     <th>Colaborador</th>
                     <th>Salario</th>
-                    <th>Descuento IESS</th>
-                    <th>Salario Total</th>
+                    <th>Aporte Patronal</th>
+                    <th>Fondo de Reserva</th>
+                    <th>Costo Total</th>
                 </tr>
 
            </thead>
@@ -43,10 +44,11 @@
                 <tr>
                     <td>{{$user->name}}</td>
                     <td>${{number_format(($user->salario), 2)}}</td>
-                  
-                    <td>${{ number_format($payslipIessDiscount = (($user->salario)*$payroll_iess), 2) }}</td>
+                
+                    <td>${{ number_format($payslipAportePatronal = (($user->salario)*$payroll_aporte_patronal), 2) }}</td>
+                    <td>${{ number_format($payslipFondoReserva = (($user->salario)*$payroll_fondo_reserva), 2) }}</td>
         
-                    <td>${{ number_format($total = (($user->salario)-$payslipIessDiscount), 2) }}</td>
+                    <td>${{ number_format($total = (($user->salario)-$payslipAportePatronal-$payslipFondoReserva), 2) }}</td>
                     
                   
             
@@ -69,11 +71,21 @@
                 
                     </td>
 
+                   
+                    <td>
+                        
+                        <p><strong>
+                        ${{$payslipIessAporteTotal}}
+                       
+                
+                        </strong></p>
+                    
+                    </td>
                     <td>
                         
                         <p><strong>
                        
-                        ${{$payslipIessDiscountTotal}}
+                        ${{$payslipIessFondoTotal}}
                 
                         </strong></p>
                     

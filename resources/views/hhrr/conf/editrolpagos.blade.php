@@ -29,6 +29,14 @@
             <label for="name">Horas Extras</label>
             <input type="text" class="form-control" name="horas_feriados"  value="{{number_format($payrolls->horas_feriados,2)}}" required>
         </div>
+        <div class="form-group">
+            <label for="name">Aporte Patronal</label>
+            <input type="text" class="form-control" name="aporte_patronal"  value="{{$payrolls->aporte_patronal}}" required>
+        </div>
+        <div class="form-group">
+            <label for="name">Fondo de Reserva</label>
+            <input type="text" class="form-control" name="fondo_reserva"  value="{{$payrolls->fondo_reserva}}" required>
+        </div>
 
         <button class="btn btn-primary">Actualizar</button>
 

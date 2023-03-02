@@ -53,6 +53,8 @@
                     <th>IESS</th>
                     <th>Horas Suplementarias</th>
                     <th>Horas Extras</th>
+                    <th>Aporte Patronal</th>
+                    <td>Fondo de Reserva</td>
                     <th>Acciones</th>
                 </tr>
 
@@ -69,6 +71,8 @@
                     <td>{{number_format($payroll->iess*100,2)}}%</a></td>
                     <td>{{number_format($payroll->horas_extras,2)}}</td>
                     <td>{{number_format($payroll->horas_feriados,2)}}</td>
+                    <td>{{number_format($payroll->aporte_patronal*100,2)}}%</td>
+                    <td>{{number_format($payroll->fondo_reserva*100,2)}}%</td>
                    
                     <td>
                     <form method="post" action="{{route('rolpagos.destroy', $payroll->id)}}">
@@ -135,7 +139,7 @@
          </div>
          <div class="card-body">
              <div class="table-responsive">
-                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                 <table class="table table-bordered" id="dataTable"  width="100%" cellspacing="0">
                      <thead>
                      <tr>
                          <th>Fracción Básica</th>

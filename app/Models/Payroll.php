@@ -11,6 +11,8 @@ class Payroll extends Model
     protected $fillable = 
     ['iess', 
     'horas_extras',
-    'horas_feriados'
+    'horas_feriados',
+    'fondo_reserva',
+    'aporte_patronal'
     ];
 }

@@ -51,6 +51,8 @@ class RolPagosController extends Controller
        
         foreach($payrolls as $payroll){
             $payroll_iess = $payroll->iess;
+            $payroll_aporte_patronal = $payroll->aporte_patronal;
+            $payroll_fondo_reserva = $payroll->fondo_reserva;
         }
 
         foreach($users as $user){
@@ -58,14 +60,19 @@ class RolPagosController extends Controller
             $payslipIessDiscount = $salarioUser*$payroll_iess;
             $salariosTotales = number_format((($user->sum('salario'))), 2);
             $payslipIessDiscountTotal = number_format((($user->sum('salario'))*$payroll_iess), 2);
-
-
+            $payslipAportePatronal = $salarioUser*$payroll_aporte_patronal;
+            $payslipFondoReserva = $salarioUser*$payroll_fondo_reserva;
+            
+            $payslipIessAporteTotal = number_format((($user->sum('salario'))*$payroll_aporte_patronal), 2);
+            $payslipIessFondoTotal = number_format((($user->sum('salario'))*$payroll_fondo_reserva), 2);
 
 
             $salariosTotales2 = $user->sum('salario');
             $payslipIessDiscountTotal2 = $user->sum('salario')*$payroll_iess;
+            $payslipAportePatronal2 = $user->sum('salario')*$payroll_aporte_patronal;
+            $payslipFondoReserva2 = $user->sum('salario')*$payroll_fondo_reserva;
 
-            $totalSalarios = $salariosTotales2 - $payslipIessDiscountTotal2;
+            $totalSalarios = $salariosTotales2  - $payslipAportePatronal2 - $payslipFondoReserva2;
       
         }
 
@@ -80,7 +87,13 @@ class RolPagosController extends Controller
         'payslipIessDiscountTotal'=>$payslipIessDiscountTotal,
         'totalSalarios'=>$totalSalarios,
         'salariosTotales2'=>$salariosTotales2,
-        'payslipIessDiscountTotal2'=>$payslipIessDiscountTotal2
+        'payslipIessDiscountTotal2'=>$payslipIessDiscountTotal2,
+        'payroll_aporte_patronal'=>$payroll_aporte_patronal,
+        'payroll_fondo_reserva'=>$payroll_fondo_reserva,
+        'payslipAportePatronal'=>$payslipAportePatronal,
+        'payslipFondoReserva'=>$payslipFondoReserva,
+        'payslipIessAporteTotal'=>$payslipIessAporteTotal,
+        'payslipIessFondoTotal'=>$payslipIessFondoTotal
        
         ]);
         
@@ -220,8 +233,10 @@ public function update(Payroll $payrolls){
     $payrolls->iess = request('iess');
     $payrolls->horas_extras = request('horas_extras');
     $payrolls->horas_feriados = request('horas_feriados');
+    $payrolls->aporte_patronal = request('aporte_patronal');
+    $payrolls->fondo_reserva = request('fondo_reserva');
 
-    if($payrolls->isDirty('iess') || $payrolls->isDirty('horas_extras') || $payrolls->isDirty('horas_feriados')){
+    if($payrolls->isDirty('iess') || $payrolls->isDirty('horas_extras') || $payrolls->isDirty('horas_feriados') || $payrolls->isDirty('aporte_patronal') || $payrolls->isDirty('fondo_reserva')){
      // si tenemos algo que hacer update
      session()->flash('parametro-actualizado', 'Se actualizó.');
      $payrolls->save();
