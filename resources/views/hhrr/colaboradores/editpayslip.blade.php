@@ -50,7 +50,8 @@
     //prestamos y anticipos ===== total descuentos!
     var prestamosValor = document.getElementById('prestamos');
     var anticiposValor = document.getElementById('anticipos');
-    var totalDescuentos = parseFloat(prestamosValor.value) + parseFloat(anticiposValor.value) + parseFloat(totalIess);
+    var aportePatronal = document.getElementById('aporte_patronal').value;
+    var totalDescuentos = parseFloat(prestamosValor.value) + parseFloat(anticiposValor.value) + parseFloat(totalIess) + parseFloat(aportePatronal);
     $('#aporteTotal2').val(totalDescuentos.toFixed(2));
 
     //liquido a pagar
@@ -98,6 +99,7 @@
                       <th>Comisión</th>
                       <th>Total ingresos</th>
                       <th>Aporte IESS</th>
+                      <th>Aporte Patronal</th>
                       <th>Préstamos quirografarios</th>
                       <th>Anticipo y préstamos</th>
                       <th>Total descuentos</th>
@@ -127,6 +129,7 @@
                      <td><input type="text" class="inputs" style="background-color: #D7E5FD" value="{{$payslip->comision}}"  id="comisionValor" name="comision_valor"></td>
                      <td><input type="text" class="inputs" readonly value="{{$payslip->total_ingresos}}" name="total_ingresos" id="totalDeIngresos"></td>
                      <td><input type="text" class="inputs" value="{{$payslip->aporte_iess}}" name="aporte_total" id="aporteTotal"></td>
+                     <td><input type="text" class="inputs" value="{{ $payslip->aporte_patronal }}" style="background-color: #D7E5FD" name="aporte_patronal" id="aporte_patronal"></td>
                      <td><input type="text" class="inputs" style="background-color: #D7E5FD" value="{{$payslip->prestamos_quirografarios}}" id="prestamos" name="prestamos"></td>
                      <td><input type="text" class="inputs" style="background-color: #D7E5FD" value="{{$payslip->anticipos_prestamos}}" id="anticipos" name="anticipos"></td>
                      <td><input type="text" class="inputs" readonly value="{{$payslip->total_descuentos}}" name="total_descuentos" id="aporteTotal2"></td>

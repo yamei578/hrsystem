@@ -97,6 +97,8 @@
                         <tr>
                             <th scope="row">Valor Horas extras</th>
                             <td>${{$payslip->valor_horas_extras}}</td>
+                            <th scope="row">Aporte Patronal</th>
+                            <td>${{$payslip->aporte_patronal}}</td>
                            
                         </tr>
                         <tr>

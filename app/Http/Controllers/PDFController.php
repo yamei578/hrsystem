@@ -91,6 +91,7 @@ class PDFController extends Controller
         $comision = Payslip::selectRaw('SUM(comision) as comision')->where('mes_anio', '=', $monthYear)->get();
         $totalIngresos = Payslip::selectRaw('SUM(total_ingresos) as total_ingresos')->where('mes_anio', '=', $monthYear)->get();
         $aporte = Payslip::selectRaw('SUM(aporte_iess) as aporte_iess')->where('mes_anio', '=', $monthYear)->get();
+        $aportePatronal = Payslip::selectRaw('SUM(aporte_patronal) as aporte_patronal')->where('mes_anio', '=', $monthYear)->get();
         $prestamos = Payslip::selectRaw('SUM(prestamos_quirografarios) as prestamos_quirografarios')->where('mes_anio', '=', $monthYear)->get();
         $anticipos = Payslip::selectRaw('SUM(anticipos_prestamos) as anticipos_prestamos')->where('mes_anio', '=', $monthYear)->get();
         $totalDescuentos = Payslip::selectRaw('SUM(total_descuentos) as total_descuentos')->where('mes_anio', '=', $monthYear)->get();
@@ -108,7 +109,8 @@ class PDFController extends Controller
             'totalIngresos'=>$totalIngresos,
             'comision'=>$comision,
             'prestamos'=>$prestamos,
-            'anticipos'=>$anticipos
+            'anticipos'=>$anticipos,
+            'aportePatronal'=>$aportePatronal
         ];
 
         

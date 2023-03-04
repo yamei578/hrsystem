@@ -51,6 +51,7 @@
                 </div>
                 <div class="col-sm">
                     <p><b>Aporte IESS</b></p>
+                    <p><b>Aporte Patronal</b></p>
                     <p><b>Préstamos Quirogr. IESS</b></p>
                     <p><b>Prést. Y Antic. Empresa</b></p>
                     <h6><b>TOTAL EGRESOS</b></h6>
@@ -58,6 +59,7 @@
                 </div>
                 <div class="col-sm">
                     <p>${{$payslip->aporte_iess}}</p>
+                    <p>${{$payslip->aporte_patronal}}</p>
                     <p>${{$payslip->prestamos_quirografarios}}</p>
                     <p>${{$payslip->anticipos_prestamos}}</p>
                     <p><b>${{$payslip->total_descuentos}}</b></p>

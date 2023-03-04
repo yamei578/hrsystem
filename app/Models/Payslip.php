@@ -25,6 +25,7 @@ class Payslip extends Model
     'comision',
     'total_ingresos',
     'aporte_iess',
+    'aporte_patronal',
     'prestamos_quirografarios',
     'anticipos_prestamos',
     'total_descuentos',

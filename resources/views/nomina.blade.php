@@ -83,6 +83,7 @@ body{
                     <th>Comisión</th>
                     <th>Total Ingresos</th>
                     <th>Aporte IESS</th>
+                    <th>Aporte Patronal</th>
                     <th>Prestamos Qui.</th>
                     <th>Anticipos/Prestamos</th>
                     <th>Total descuentos</th>
@@ -106,6 +107,7 @@ body{
                     <td>{{$payroll->comision}}</td>
                     <td>{{$payroll->total_ingresos}}</td>
                     <td>{{$payroll->aporte_iess}}</td>
+                    <td>{{$payroll->aporte_patronal}}</td>
                     <td>{{$payroll->prestamos_quirografarios}}</td>
                     <td>{{$payroll->anticipos_prestamos}}</td>
                     <td>{{$payroll->total_descuentos}}</td>
@@ -177,6 +179,17 @@ body{
 
                @endforeach
                </td>
+               <td>
+                    @foreach($aportePatronal as $patronal)
+                       
+                    <p><strong>
+
+                    ${{number_format($patronal->aporte_patronal,2)}}
+
+                        </strong></p>
+
+                    @endforeach
+                    </td>
                <td>
                @foreach($prestamos as $prest)
                   

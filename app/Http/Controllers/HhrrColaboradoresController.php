@@ -382,13 +382,14 @@ class HhrrColaboradoresController extends Controller
             $payslip->valor_horas_extras = request('valor_horas');
             $payslip->total_ingresos = request('total_ingresos');
             $payslip->aporte_iess = request('aporte_total');
+            $payslip->aporte_patronal = request('aporte_patronal');
             $payslip->total_descuentos = request('total_descuentos');
             $payslip->liquido_pagar = request('liquido_pagar');
       
 
             if($payslip->isDirty('dias_trabajados') || $payslip->isDirty('horas_50') || $payslip->isDirty('horas_100') || $payslip->isDirty('comision_valor') || $payslip->isDirty('prestamos') 
             || $payslip->isDirty('anticipos') || $payslip->isDirty('sueldo_ganado') || $payslip->isDirty('total_horas') || $payslip->isDirty('valor_horas') || $payslip->isDirty('total_ingresos') || $payslip->isDirty('aporte_total') ||
-            $payslip->isDirty('total_descuentos') || $payslip->isDirty('liquido_pagar')){
+            $payslip->isDirty('total_descuentos') || $payslip->isDirty('liquido_pagar') || $payslip->isDirty('aporte_patronal')){
 
                 session()->flash('payslip-updated', 'Rol de pagos actualizado.');
                 $payslip->save();

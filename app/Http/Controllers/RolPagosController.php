@@ -41,7 +41,7 @@ class RolPagosController extends Controller
     }
 
     public function indexRolPagos(){
-        //index de modulo rol de pagos HHRR muestra salarios sin variaciones
+        //index de modulo costo colaborador 
         $payrolls = Payroll::all();
         $employeeController = new EmployeeController();
         $userController = new UserController();
@@ -150,6 +150,7 @@ class RolPagosController extends Controller
         $comision = Payslip::selectRaw('SUM(comision) as comision')->where('mes_anio', '=', $monthYear)->get();
         $totalIngresos = Payslip::selectRaw('SUM(total_ingresos) as total_ingresos')->where('mes_anio', '=', $monthYear)->get();
         $aporte = Payslip::selectRaw('SUM(aporte_iess) as aporte_iess')->where('mes_anio', '=', $monthYear)->get();
+        $aportePatronal = Payslip::selectRaw('SUM(aporte_patronal) as aporte_patronal')->where('mes_anio', '=', $monthYear)->get();
         $prestamos = Payslip::selectRaw('SUM(prestamos_quirografarios) as prestamos_quirografarios')->where('mes_anio', '=', $monthYear)->get();
         $anticipos = Payslip::selectRaw('SUM(anticipos_prestamos) as anticipos_prestamos')->where('mes_anio', '=', $monthYear)->get();
         $totalDescuentos = Payslip::selectRaw('SUM(total_descuentos) as total_descuentos')->where('mes_anio', '=', $monthYear)->get();
@@ -167,7 +168,8 @@ class RolPagosController extends Controller
          'totalIngresos'=>$totalIngresos,
          'comision'=>$comision,
          'prestamos'=>$prestamos,
-         'anticipos'=>$anticipos
+         'anticipos'=>$anticipos,
+         'aportePatronal'=>$aportePatronal
 
         ]);
         
@@ -316,12 +318,12 @@ public function payrollEmployee(){
         $user_id = request('user_id');
        
         $fechaPayroll = Carbon::createFromFormat('Y-m-d', $fecha_desde)->isoFormat('MM-YYYY'); 
+        $yearOnly = Carbon::createFromFormat('Y-m-d', $fecha_desde)->isoFormat('YYYY') ; 
         $diasLaboralesMes = 30;
         $horasLaboralesMes = 160;
         $porcentajeSuplementarias = 1.5;
         $porcentajeExtras = 2;
         $horasDiarias = 8;
-        
     
       $marcacionesColaboradores = Marc::all();
     
@@ -341,6 +343,24 @@ public function payrollEmployee(){
        
        $queryHorasSup2 = DB::table('marcs')->selectRaw('(HOUR(marcs.horas_trabajadas)) as horasTotales')->whereDate('fecha_hora_marcacion', '>=', $fecha_desde)->whereDate('fecha_hora_marcacion', '<=', $fecha_hasta)->join('users','marcs.user_id','=','users.id')->join('config_marcs','marcs.marcacion_id','=','config_marcs.id')->where('user_id','=',$user_id)->where('marcs.marcacion_id','=','2')->get()->toArray(); //ESTE
     
+
+       $userTaxes = DB::table('employee_taxes')->select('employee_taxes.impuesto_por_pagar')->where('employee_taxes.anio','=',$yearOnly)->where('employee_taxes.user_id','=',$user_id)->join('users','employee_taxes.user_id','=','users.id')->get();
+        
+
+ 
+         if ($userTaxes->isEmpty()) {
+             $userTaxes2 = 0;
+         } else {
+            $userTaxes2 = 0;
+             foreach ($userTaxes as $tax) {
+                $userTaxes2 += $tax->impuesto_por_pagar;
+                
+             }
+            
+         }
+         $userTaxes3 = floatval($userTaxes2);
+
+
        //inicio horas 50%
        $collection = collect($queryHorasSup2);
        $resta = $collection->map(function ($item, $key) {
@@ -402,7 +422,6 @@ public function payrollEmployee(){
     
        $totalDiasLaborados = $query->count();
       
-    
         foreach($query as $queries){
         
             $sueldoNominal = $queries->salario;
@@ -419,7 +438,7 @@ public function payrollEmployee(){
         $valorHorasExtras = ($sueldoNominal/30)/(8)*$totalHorasExtrasYSup;
         $totalIngresos = $sueldoGanado+$valorHorasExtras;
         $descuentoIess = $totalIngresos*$iessToInt2;
-        $totalDescuentos = $descuentoIess;
+        $totalDescuentos = $descuentoIess + $userTaxes3;
         $liquidoAPagar = $totalIngresos-$totalDescuentos;
 
 
@@ -454,7 +473,8 @@ public function payrollEmployee(){
         'fecha_hasta'=>$fecha_hasta,
         'iessToInt2'=>$iessToInt2,
         'supToInt2'=>$supToInt2,
-        'extrasToInt2'=>$extrasToInt2
+        'extrasToInt2'=>$extrasToInt2,
+        'userTaxes3'=>$userTaxes3
         ]);
       
     }
@@ -491,7 +511,8 @@ public function insertPayslip(){
         'prestamos_quirografarios'=>request('prestamos'),
         'anticipos_prestamos'=>request('anticipos'),
         'total_descuentos'=>request('total_descuentos'),
-        'liquido_pagar'=>request('liquido_pagar')
+        'liquido_pagar'=>request('liquido_pagar'),
+        'aporte_patronal'=>request('aporte_patronal')
        
     ]);
 

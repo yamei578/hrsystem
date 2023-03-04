@@ -52,7 +52,8 @@
     //prestamos y anticipos ===== total descuentos!
     var prestamosValor = document.getElementById('prestamos');
     var anticiposValor = document.getElementById('anticipos');
-    var totalDescuentos = parseFloat(prestamosValor.value) + parseFloat(anticiposValor.value) + parseFloat(totalIess);
+    var aportePatronal = document.getElementById('aporte_patronal').value;
+    var totalDescuentos = parseFloat(prestamosValor.value) + parseFloat(anticiposValor.value) + parseFloat(totalIess) + parseFloat(aportePatronal);
     $('#aporteTotal2').val(totalDescuentos.toFixed(2));
 
     //liquido a pagar
@@ -105,6 +106,7 @@
                       <th>Comisión</th>
                       <th>Total ingresos</th>
                       <th>Aporte IESS</th>
+                      <th>Aporte Patronal</th>
                       <th>Préstamos quirografarios</th>
                       <th>Anticipo y préstamos</th>
                       <th>Total descuentos</th>
@@ -132,6 +134,7 @@
                      <td><input type="text" class="inputs" style="background-color: #D7E5FD" value="0"  id="comisionValor" name="comision_valor"></td>
                      <td><input type="text" class="inputs" readonly value="{{($totalIngresos)}}" name="total_ingresos" id="totalDeIngresos"></td>
                      <td><input type="text" class="inputs" readonly value="{{($descuentoIess)}}" name="aporte_total" id="aporteTotal"></td>
+                     <td><input type="text" class="inputs" value="{{ $userTaxes3 }}" style="background-color: #D7E5FD" name="aporte_patronal" id="aporte_patronal"></td>
                      <td><input type="text" class="inputs" style="background-color: #D7E5FD" value="0" id="prestamos" name="prestamos"></td>
                      <td><input type="text" class="inputs" style="background-color: #D7E5FD" value="0" id="anticipos" name="anticipos"></td>
                      <td><input type="text" class="inputs" readonly value="{{($totalDescuentos)}}" name="total_descuentos" id="aporteTotal2"></td>
