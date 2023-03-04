@@ -110,10 +110,10 @@
                                     @foreach($impuestos as $impuesto)
                                         <tr>
 
-                                            <td id="fraccionBasica">{{ $impuesto->fraccion_basica }}</td>
-                                            <td id="excesoHasta">{{ $impuesto->exceso_hasta }}</td>
-                                            <td id="impuestoBasico">{{ $impuesto->impuesto_fraccion_basica }}</td>
-                                            <td id="impuestoExcedente">{{ number_format($impuesto->impuesto_fraccion_excedente,2) }}%
+                                            <td id="fraccionBasica">{{ number_format($impuesto->fraccion_basica,2) }}</td>
+                                            <td id="excesoHasta">{{ number_format($impuesto->exceso_hasta,2) }}</td>
+                                            <td id="impuestoBasico">{{ number_format($impuesto->impuesto_fraccion_basica,2) }}</td>
+                                            <td id="impuestoExcedente">{{ number_format($impuesto->impuesto_fraccion_excedente*100,2) }}%
                                             </td>
 
                                         </tr>
@@ -136,7 +136,7 @@
         <hr>
             <p>Ingresar año en formato: yyyy</p>
             <p>Ejemplo: 2023</p>
-        <input type="text" name="anio" class="form-control col-md-3" value="{{$anio}}"><br>
+        <input type="text" name="anio" class="form-control col-md-3" value="{{$anio}}" required><br>
 
         <h5 class="m-0 font-weight-bold text-primary">Ingresos</h5>
         <hr>
@@ -171,7 +171,7 @@
                 <label for="">Alimentación</label>
             </div>
             <div class="col-6 col-md-4" style="margin-bottom: 30px;">
-                <input type="text" class="form-control" id="alimentacion" name="alimentacion" value="{{$alimentacion}}">
+                <input type="text" class="form-control" id="alimentacion" name="alimentacion" value="{{$alimentacion}}" required>
             </div>
         </div>
 
@@ -181,7 +181,7 @@
                 <label for="">Vivienda</label>
             </div>
             <div class="col-6 col-md-4" style="margin-bottom: 30px;">
-                <input type="text" class="form-control" id="vivienda"  name="vivienda" value="{{$vivienda}}">
+                <input type="text" class="form-control" id="vivienda"  name="vivienda" value="{{$vivienda}}" required>
             </div>
         </div>
 
@@ -190,7 +190,7 @@
                 <label for="">Educación, arte y cultura</label>
             </div>
             <div class="col-6 col-md-4" style="margin-bottom: 30px;">
-                <input type="text" class="form-control" id="recreacion"  name="recreacion" value="{{$recreacion}}">
+                <input type="text" class="form-control" id="recreacion"  name="recreacion" value="{{$recreacion}}" required>
             </div>
         </div>
        
@@ -199,7 +199,7 @@
                 <label for="">Vestimenta</label>
             </div>
             <div class="col-6 col-md-4" style="margin-bottom: 30px;">
-                <input type="text" class="form-control" id="vestimenta"  name="vestimenta" value="{{$vestimenta}}">
+                <input type="text" class="form-control" id="vestimenta"  name="vestimenta" value="{{$vestimenta}}" required>
             </div>
         </div>
 
@@ -208,7 +208,7 @@
                 <label for="">Salud</label>
             </div>
             <div class="col-6 col-md-4" style="margin-bottom: 30px;">
-                <input type="text" class="form-control" id="salud"  name="salud" value="{{$salud}}">
+                <input type="text" class="form-control" id="salud"  name="salud" value="{{$salud}}" required>
             </div>
         </div>
 
@@ -239,7 +239,7 @@
                 <label for="">Otros gastos y deducciones</label>
             </div>
             <div class="col-6 col-md-4" style="margin-bottom: 30px;">
-                <input type="text" class="form-control" id="otrosGastos" name="otrosGastos" value="{{ $otrosGastos }}">
+                <input type="text" class="form-control" id="otrosGastos" name="otrosGastos" value="{{ $otrosGastos }}" required>
             </div>
         </div>
 
