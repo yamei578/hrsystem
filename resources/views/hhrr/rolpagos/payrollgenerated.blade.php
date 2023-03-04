@@ -106,7 +106,7 @@
                       <th>Comisión</th>
                       <th>Total ingresos</th>
                       <th>Aporte IESS</th>
-                      <th>Aporte Patronal</th>
+                      <th>Impuesto a la Renta</th>
                       <th>Préstamos quirografarios</th>
                       <th>Anticipo y préstamos</th>
                       <th>Total descuentos</th>

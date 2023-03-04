@@ -83,7 +83,7 @@ body{
                     <th>Comisión</th>
                     <th>Total Ingresos</th>
                     <th>Aporte IESS</th>
-                    <th>Aporte Patronal</th>
+                    <th>Impuesto a la Renta</th>
                     <th>Prestamos Qui.</th>
                     <th>Anticipos/Prestamos</th>
                     <th>Total descuentos</th>

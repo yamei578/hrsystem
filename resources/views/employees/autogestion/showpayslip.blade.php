@@ -51,7 +51,7 @@
                 </div>
                 <div class="col-sm">
                     <p><b>Aporte IESS</b></p>
-                    <p><b>Aporte Patronal</b></p>
+                    <p><b>Impuesto a la Renta</b></p>
                     <p><b>Préstamos Quirogr. IESS</b></p>
                     <p><b>Prést. Y Antic. Empresa</b></p>
                     <h6><b>TOTAL EGRESOS</b></h6>
