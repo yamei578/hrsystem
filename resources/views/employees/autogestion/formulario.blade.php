@@ -248,7 +248,7 @@
                 <label for=""><strong>Total Deducciones</strong></label>
             </div>
             <div class="col-6 col-md-4" style="margin-bottom: 30px;">
-                <input type="text" class="form-control" value="{{ $total_deduccion_personales }}" id="totalDeducciones" name="total_deducciones" readonly>
+                <input type="text" class="form-control" value="{{ $total_deducciones }}" id="totalDeducciones" name="total_deducciones" readonly>
             </div>
         </div>
 
