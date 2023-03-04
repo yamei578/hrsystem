@@ -302,7 +302,7 @@
         <input type="text" class="form-control" readonly id="totalPersonales" name="total_deduccion_personales" value="{{$total_deduccion_personales}}" hidden="true">
         <input type="text" class="form-control" value="{{ $calculoIess }}" id="deduccionIess" name="deduccionIess" readonly hidden="true">
         <input type="text" class="form-control" id="otrosGastos" name="otrosGastos" value="{{ $otrosGastos }}" hidden="true">
-        <input type="text" class="form-control" value="{{ $total_deduccion_personales }}" id="totalDeducciones" name="total_deducciones" readonly hidden="true">
+        <input type="text" class="form-control" value="{{ $total_deducciones }}" id="totalDeducciones" name="total_deducciones" readonly hidden="true">
         <input type="text" class="form-control" value="{{ $salarioAnual }}" name="total_ingresos" readonly hidden="true">
 
 
