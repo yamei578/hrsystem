@@ -65,7 +65,7 @@
 
   <div class="col-6">
     <label for="">Foto colaborador</label>
-    <input type="file" class="form-control-file" name="avatar">
+    <input type="file" class="form-control-file" name="avatar" required>
   </div>
     
   </div>
