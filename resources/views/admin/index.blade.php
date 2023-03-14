@@ -333,36 +333,7 @@ $(document).ready(function() {
         </div>
 
     </div>
-    <div class="col-sm-4">
-        <div class="card">
-
-            <div class="card-body border-left-primary">
-                <h5 class="card-title">Feriados/Fds:</h5>
-
-                <p class="card-text">Entrada:
-                    @if($entradaFeriadoFecha)
-                        {{ $entradaFeriadoFecha->fecha_hora_marcacion }}
-                    @else
-                        {!! $text !!}
-                    @endif</p>
-
-                    <p class="card-text">Salida:
-                        @if($salidaFeriadoFecha)
-                            {{ $salidaFeriadoFecha->fecha_hora_marcacion }}
-                        @else
-                            {!! $text !!}
-                        @endif</p>
-
-                        <p class="card-text" id="totalAlmuerzo">Tiempo:
-
-                            {{ $totalDuracionFeriado }}
-
-                        </p>
-
-            </div>
-        </div>
-
-    </div>
+   
 
 </div>
 
