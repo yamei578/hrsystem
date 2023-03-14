@@ -272,11 +272,12 @@ $(document).ready(function() {
 
 
 <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-6">
 
         <div class="card">
             <div class="card-body border-left-primary">
-                <h5 class="card-title">Marcaciones laborales de hoy:</h5>
+                <h5 class="card-title">Marcaciones de hoy:</h5>
+
 
 
                 <p class="card-text" id="entradaFecha">Entrada:
@@ -303,20 +304,20 @@ $(document).ready(function() {
 
         </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-6">
         <div class="card">
 
             <div class="card-body border-left-primary">
-                <h5 class="card-title"> Marcaciones de almuerzo de hoy:</h5>
+                <h5 class="card-title"> Marcaciones de Almuerzo:</h5>
 
-                <p class="card-text">Entrada:
+                <p class="card-text"> Inicio:
                     @if($entradaAlmuerzoFecha)
                         {{ $entradaAlmuerzoFecha->fecha_hora_marcacion }}
                     @else
                         {!! $text !!}
                     @endif</p>
 
-                    <p class="card-text">Salida:
+                    <p class="card-text">Fin:
                         @if($salidaAlmuerzoFecha)
                             {{ $salidaAlmuerzoFecha->fecha_hora_marcacion }}
                         @else

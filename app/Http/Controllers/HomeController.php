@@ -83,7 +83,8 @@ class HomeController extends Controller
        $totalDuracionFeriado = null;
        $totalDuracionLaboral = null;
        $totalDuracionAlmuerzo = null;
-       $text = '<p class="text-danger"><strong>No has marcado.</strong></p>';
+       $text = '<p class="text-danger"><strong>---</strong></p>';
+       
 
        foreach($user as $user_marcaciones){
 
